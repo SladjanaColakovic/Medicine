@@ -21,6 +21,8 @@ public class Medicine {
     private String interactions;
     private String applicationMethod;
     private String composition;
+    private String dose;
+    private String contraindications;
     @OneToOne
     @JoinColumn(name = "classification_id", referencedColumnName = "id")
     private MedicineClassification classification;

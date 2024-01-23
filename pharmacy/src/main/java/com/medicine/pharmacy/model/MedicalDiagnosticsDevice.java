@@ -1,6 +1,5 @@
 package com.medicine.pharmacy.model;
 
-import com.medicine.pharmacy.enumeration.MedicineCosmeticsForm;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MedicalCosmetics {
+public class MedicalDiagnosticsDevice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,5 @@ public class MedicalCosmetics {
 
     private String name;
     private String description;
-    private String applicationMethod;
-    private String composition;
-    private MedicineCosmeticsForm form;
+    private String guide;
 }
