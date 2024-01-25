@@ -16,8 +16,8 @@ public class MedicineController {
     @Autowired
     private MedicineService service;
     @PostMapping
-    public ResponseEntity<?> addMedicine(@RequestBody NewMedicineDto newMedicine){
-        Medicine medicine =  service.addMedicine(newMedicine);
+    public ResponseEntity<?> add(@RequestBody NewMedicineDto newMedicine){
+        Medicine medicine =  service.add(newMedicine);
         return new ResponseEntity<>(medicine, HttpStatus.CREATED);
     }
 

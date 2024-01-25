@@ -7,7 +7,7 @@ import com.medicine.pharmacy.model.Medicine;
 import java.util.List;
 
 public interface MedicineService {
-    Medicine addMedicine(NewMedicineDto newMedicine);
+    Medicine add(NewMedicineDto newMedicine);
     List<Medicine> getAll();
     Medicine getById(Long id);
     Medicine edit(EditMedicineDto editMedicine);

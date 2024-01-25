@@ -22,7 +22,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Autowired
     private ModelMapper mapper;
     @Override
-    public Medicine addMedicine(NewMedicineDto newMedicine) {
+    public Medicine add(NewMedicineDto newMedicine) {
         Medicine medicine = mapper.map(newMedicine, Medicine.class);
         return repository.save(medicine);
     }
