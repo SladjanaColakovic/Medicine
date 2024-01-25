@@ -1,18 +1,13 @@
-package com.medicine.pharmacy.model;
+package com.medicine.pharmacy.dto;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@NoArgsConstructor
 @Getter
 @Setter
-public class Medicine {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class EditMedicineDto {
     private Long id;
     private String proprietaryName;
     private String notProprietaryName;
@@ -23,9 +18,5 @@ public class Medicine {
     private String composition;
     private String dose;
     private String contraindications;
-    @ManyToOne()
-    @JoinColumn(name = "classification_id", referencedColumnName = "id")
-    private MedicineClassification classification;
-
-
+    private Long classificationId;
 }
