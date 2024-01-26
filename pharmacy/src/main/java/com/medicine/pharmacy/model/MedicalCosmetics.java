@@ -1,10 +1,7 @@
 package com.medicine.pharmacy.model;
 
 import com.medicine.pharmacy.enumeration.MedicineCosmeticsForm;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,4 +21,7 @@ public class MedicalCosmetics {
     private String applicationMethod;
     private String composition;
     private MedicineCosmeticsForm form;
+
+    @OneToOne
+    private Image image;
 }
