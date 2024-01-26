@@ -1,3 +1,14 @@
 INSERT INTO public.medicine_classification(name) VALUES ('Alimentarni trakt i metabolizam');
 INSERT INTO public.medicine_classification(name) VALUES ('Krv i krvotvorni organi');
 INSERT INTO public.medicine_classification(name) VALUES ('Kardiovaskularni sistem');
+INSERT INTO public.medicine_classification(name) VALUES ('Koža i potkožno tkivo');
+INSERT INTO public.medicine_classification(name) VALUES ('Genitourinarni sistem i polni organi');
+INSERT INTO public.medicine_classification(name) VALUES ('Hormonski preparati za sistemsku primjenu isključujući polne hormone i insulin');
+INSERT INTO public.medicine_classification(name) VALUES ('Antiinfektivni lijekovi za sistemsku primjenu');
+INSERT INTO public.medicine_classification(name) VALUES ('Antineoplastici i imunomodulatori');
+INSERT INTO public.medicine_classification(name) VALUES ('Mišićno-koštani sistem');
+INSERT INTO public.medicine_classification(name) VALUES ('Nervni sistem');
+INSERT INTO public.medicine_classification(name) VALUES ('Antiparazitni proizvodi insekticidi i sredstva za zaštitu od insekata');
+INSERT INTO public.medicine_classification(name) VALUES ('Respiratorni sistem');
+INSERT INTO public.medicine_classification(name) VALUES ('Senzorni organi');
+INSERT INTO public.medicine_classification(name) VALUES ('Ostalo');
