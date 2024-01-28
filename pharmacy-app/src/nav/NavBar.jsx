@@ -1,16 +1,28 @@
 import SvgButton from "../buttons/SvgButton";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+    const navigate = useNavigate();
 
     const showMedicines = () => {
-
+        navigate("/", {replace: true})
     }
 
-    const showCosmetics = () => { }
-    const showSupplements = () => { }
-    const showMedicalAids = () => {}
-    const showSanitaryMaterials = () => {}
-    const showMedicalDiagnosticsDevices = () => {}
+    const showCosmetics = () => {
+        navigate("/cosmetics", {replace: true})
+     }
+    const showSupplements = () => { 
+        navigate("/supplements", {replace: true})
+    }
+    const showMedicalAids = () => {
+        navigate("/aids", {replace: true})
+    }
+    const showSanitaryMaterials = () => {
+        navigate("/sanitaryMaterials", {replace: true})
+    }
+    const showMedicalDiagnosticsDevices = () => {
+        navigate("/devices", {replace: true})
+    }
 
     return (
         <div className="sidenav">
