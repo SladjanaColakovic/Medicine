@@ -35,6 +35,62 @@ svg {
   fill: rgb(236, 232, 232);
 }
 
-.main{
+.main {
   margin-left: 110px;
+}
+
+.classification {
+  font-size: 13px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  background-color: #faf7f7;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+
+}
+
+.classification li button {
+  display: block;
+  color: rgb(236, 232, 232);
+  padding: 10px 16px;
+  border: none;
+  width: 93%;
+  margin: auto;
+  margin-top: 5px;
+  background-color: #828080;
+}
+
+.classification li button:hover {
+  background-color: #6b6a6a;
+}
+
+.content {
+  margin-left: 250px;
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+}
+
+.box {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid;
+  border-color: #828080;
+}
+
+.content > .row{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+img {
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
 }
