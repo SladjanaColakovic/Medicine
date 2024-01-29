@@ -53,9 +53,11 @@ const Medicines = () => {
                                 <img src={brufen} alt="" />
                             </div>
                             <div className="col-7">
-                                <p>{medicine.proprietaryName}</p>
-                                <p>{medicine.notProprietaryName}</p>
-                                <p>{medicine.indications}</p>
+                                <p> <span>Zaštićeni naziv lijeka:</span> {medicine.proprietaryName}</p>
+                                <p><span>Nezaštićeni naziv lijeka:</span> {medicine.notProprietaryName}</p>
+                                <p className="long-paragraph"><span>Neželjena dejstva:</span> {medicine.sideEffects}</p>
+                                <p className="long-paragraph"><span>Metod primjene:</span> {medicine.applicationMethod}</p>
+                                <Button name={"Detalji"}/>
                             </div>
                         </div>
                     </div>
