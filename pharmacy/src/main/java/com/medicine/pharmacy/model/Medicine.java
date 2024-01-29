@@ -16,14 +16,20 @@ public class Medicine {
     private Long id;
     private String proprietaryName;
     private String notProprietaryName;
+    @Column(length = 1024)
     private String indications;
+    @Column(length = 1024)
     private String sideEffects;
+    @Column(length = 1024)
     private String interactions;
+    @Column(length = 1024)
     private String applicationMethod;
+    @Column(length = 1024)
     private String composition;
     private String dose;
+    @Column(length = 1024)
     private String contraindications;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classification_id", referencedColumnName = "id")
     private MedicineClassification classification;
 

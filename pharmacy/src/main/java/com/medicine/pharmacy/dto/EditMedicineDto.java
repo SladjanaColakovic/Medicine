@@ -18,5 +18,5 @@ public class EditMedicineDto {
     private String composition;
     private String dose;
     private String contraindications;
-    private Long classificationId;
+    private MedicineClassificationDto classification;
 }
