@@ -125,6 +125,31 @@ span {
   float: right;
 }
 
-.content button:hover{
+.content button:hover {
   background-color: #6b6a6a;
+}
+
+.box .row .col-6 button {
+  display: block;
+  color: rgb(236, 232, 232);
+  padding: 10px 20px;
+  border: none;
+  margin-top: 5px;
+  background-color: #828080;
+}
+
+.box .row .col-6 button:hover {
+  background-color: #6b6a6a;
+}
+
+textarea{
+  width: 100%;
+}
+
+#delete button{
+  background-color: rgb(169, 105, 105);
+}
+
+#delete button:hover{
+  background-color: rgb(144, 88, 88);
 }
