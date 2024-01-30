@@ -7,12 +7,14 @@ import Cosmetics from './cosmetics/Cosmetics'
 import SanitaryMaterial from './sanitary-material/SanitaryMaterial'
 import Aids from './aids/Aids'
 import Devices from './devices/Devices'
+import MedicineDetails from './medicines/MedicineDetails';
 
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route path='/' element={<Medicines />}></Route>
+        <Route path='/medicineDetails/:id' element={<MedicineDetails/>}></Route>
         <Route path='/supplements' element={<Supplements />}></Route>
         <Route path='cosmetics' element={<Cosmetics />}></Route>
         <Route path='/sanitaryMaterials' element={<SanitaryMaterial />}></Route>

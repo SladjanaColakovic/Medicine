@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { get } from "../http-client/httpClient";
 import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
+import { useNavigate } from "react-router-dom";
 
 const Medicines = () => {
 
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);
     const [classification, setClassification] = useState({id: 1, name: "Alimentarni trakt i metabolizam"});
+    const navigate = useNavigate();
 
     useEffect(() => {
         get("http://localhost:8080/api/classification")
@@ -36,6 +38,10 @@ const Medicines = () => {
             })
     }
 
+    const showDetails = (id) => {
+        navigate("medicineDetails/" + id);
+    }
+
     return (
         <div className="main">
             <ul className="classification">
@@ -57,7 +63,7 @@ const Medicines = () => {
                                 <p><span>Nezaštićeni naziv lijeka:</span> {medicine.notProprietaryName}</p>
                                 <p className="long-paragraph"><span>Neželjena dejstva:</span> {medicine.sideEffects}</p>
                                 <p className="long-paragraph"><span>Metod primjene:</span> {medicine.applicationMethod}</p>
-                                <Button name={"Detalji"}/>
+                                <Button name={"Detalji"} handleClick={() => showDetails(medicine.id)}/>
                             </div>
                         </div>
                     </div>
