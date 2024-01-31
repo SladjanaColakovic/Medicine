@@ -146,6 +146,15 @@ textarea{
   width: 100%;
 }
 
+input{
+  width: 100%;
+  padding: 8px 4px;
+}
+select{
+  width: 100%;
+  padding: 8px 4px;
+}
+
 #delete button{
   background-color: rgb(169, 105, 105);
 }

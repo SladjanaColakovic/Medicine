@@ -3,21 +3,35 @@ import { useParams } from "react-router-dom";
 import { get } from "../http-client/httpClient"
 import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
+import Input from "../inputs/Input";
+import Select from "../inputs/Select";
+import TextArea from "../inputs/TextArea";
 
 const MedicineDetails = () => {
     const { id } = useParams();
-    const [data, setData] = useState(null)
+    const [data, setData] = useState(null);
+    const [classifications, setClassifications] = useState(null);
 
     useEffect(() => {
         get("http://localhost:8080/api/medicine/" + id)
             .then((res) => {
                 setData(res.data);
-                console.log(res.data)
+                get("http://localhost:8080/api/classification")
+                    .then((res) => {
+                        setClassifications(res.data);
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    })
             })
             .catch((error) => {
                 console.log(error.message)
             })
     }, []);
+
+    const edit = () => {
+        console.log(data);
+    }
 
     return (
         <div className="main">
@@ -31,33 +45,26 @@ const MedicineDetails = () => {
                             <div className="row">
                                 <div className="col-6">
                                     <img src={brufen} alt="" />
-                                    <p><span>Zaštićeni naziv lijeka:</span> {data.proprietaryName}</p>
-                                    <p><span>Nezaštićeni naziv lijeka:</span> {data.notProprietaryName}</p>
-                                    <p><span>Klasifikacija lijeka:</span> {data.classification.name}</p>
-                                    <span>Doze:</span>
-                                    <textarea rows="2">{data.dose}</textarea>
-                                    <span>Sastav:</span>
-                                    <textarea rows="2">{data.composition}</textarea>
-                                    <span>Metod primjene:</span>
-                                    <textarea rows="4">{data.applicationMethod}</textarea>
+                                    <Input name={"Zaštićeni naziv lijeka:"} type={"text"} value={data.proprietaryName} changeValue={(e) => setData({ ...data, proprietaryName: e.target.value })} />
+                                    <Input name={"Nezaštićeni naziv lijeka:"} type={"text"} value={data.notProprietaryName} changeValue={(e) => setData({ ...data, notProprietaryName: e.target.value })} />
+                                    <Select items={classifications} selectedItem={data.classification.id} name={"Klasifikacija lijeka:"} setItem={(e) => setData({ ...data, classification: { ...data.classification, id: e.target.value } })} />
+                                    <TextArea name={"Doze:"} rows={"2"} value={data.dose} changeValue={(e) => setData({ ...data, dose: e.target.value })} />
+                                    <TextArea name={"Sastav:"} rows={"2"} value={data.composition} changeValue={(e) => setData({ ...data, composition: e.target.value })} />
                                     <div className="row">
                                         <div className="col-2">
-                                            <Button name={"Izmijeni"} />
+                                            <Button name={"Izmijeni"} handleClick={edit}/>
                                         </div>
                                         <div id="delete" className="col-2">
-                                            <Button name={"Izbriši"}/>
+                                            <Button name={"Izbriši"} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <span>Interakcije:</span>
-                                    <textarea rows="4">{data.interactions}</textarea>
-                                    <span>Indikacije:</span>
-                                    <textarea rows="4">{data.indications}</textarea>
-                                    <span>Kontraindikacije:</span>
-                                    <textarea rows="4">{data.contraindications}</textarea>
-                                    <span>Neželjena dejstva:</span>
-                                    <textarea rows="4">{data.sideEffects}</textarea>
+                                    <TextArea name={"Metod primjene:"} rows={"4"} value={data.applicationMethod} changeValue={(e) => setData({ ...data, applicationMethod: e.target.value })} />
+                                    <TextArea name={"Interakcije:"} rows={"4"} value={data.interactions} changeValue={(e) => setData({ ...data, interactions: e.target.value })} />
+                                    <TextArea name={"Indikacije:"} rows={"4"} value={data.indications} changeValue={(e) => setData({ ...data, indications: e.target.value })} />
+                                    <TextArea name={"Kontraindikacije:"} rows={"4"} value={data.contraindications} changeValue={(e) => setData({ ...data, contraindications: e.target.value })} />
+                                    <TextArea name={"Neželjena dejstva:"} rows={"4"} value={data.sideEffects} changeValue={(e) => setData({ ...data, sideEffects: e.target.value })} />
                                 </div>
                             </div>
 
