@@ -9,7 +9,7 @@ export const post = (url, data) => {
 }
 
 export const put = (url, data) => {
-    return axios.post(url, data);
+    return axios.put(url, data);
 }
 
 export const remove = (url, params) => {

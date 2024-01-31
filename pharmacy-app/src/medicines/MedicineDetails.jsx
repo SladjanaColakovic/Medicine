@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { get } from "../http-client/httpClient"
+import { get, put } from "../http-client/httpClient"
 import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 import Input from "../inputs/Input";
@@ -31,6 +31,14 @@ const MedicineDetails = () => {
 
     const edit = () => {
         console.log(data);
+        put("http://localhost:8080/api/medicine", data)
+            .then((res) => {
+                console.log(res.data);
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
     }
 
     return (
@@ -52,7 +60,7 @@ const MedicineDetails = () => {
                                     <TextArea name={"Sastav:"} rows={"2"} value={data.composition} changeValue={(e) => setData({ ...data, composition: e.target.value })} />
                                     <div className="row">
                                         <div className="col-2">
-                                            <Button name={"Izmijeni"} handleClick={edit}/>
+                                            <Button name={"Izmijeni"} handleClick={edit} />
                                         </div>
                                         <div id="delete" className="col-2">
                                             <Button name={"Izbriši"} />
