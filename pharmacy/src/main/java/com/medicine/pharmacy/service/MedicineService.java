@@ -13,5 +13,6 @@ public interface MedicineService {
     Medicine edit(EditMedicineDto editMedicine);
     void delete(Long id);
     List<Medicine> getByClassification(Long classificationId);
+    List<Medicine> search(String searchTerm);
 
 }

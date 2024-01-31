@@ -46,4 +46,10 @@ public class MedicineController {
     public ResponseEntity<?> getByClassification(@PathVariable Long id){
         return new ResponseEntity<>(service.getByClassification(id), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/search")
+    public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm){
+        System.out.println(searchTerm);
+        return new ResponseEntity<>(service.search(searchTerm), HttpStatus.OK);
+    }
 }

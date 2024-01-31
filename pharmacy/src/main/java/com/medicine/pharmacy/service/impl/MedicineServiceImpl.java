@@ -64,4 +64,9 @@ public class MedicineServiceImpl implements MedicineService {
     public List<Medicine> getByClassification(Long classificationId) {
         return repository.findByClassificationId(classificationId);
     }
+
+    @Override
+    public List<Medicine> search(String searchTerm) {
+        return repository.search(searchTerm);
+    }
 }
