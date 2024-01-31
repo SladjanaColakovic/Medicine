@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { get, put } from "../http-client/httpClient"
+import { useNavigate, useParams } from "react-router-dom";
+import { get, put, remove } from "../http-client/httpClient"
 import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 import Input from "../inputs/Input";
@@ -11,6 +11,7 @@ const MedicineDetails = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         get("http://localhost:8080/api/medicine/" + id)
@@ -41,6 +42,16 @@ const MedicineDetails = () => {
             })
     }
 
+    const removeData = () => {
+        remove("http://localhost:8080/api/medicine/" + data.id)
+        .then(() => {
+            navigate("/", {replace: true})
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+    }
+
     return (
         <div className="main">
             <h1>Detalji lijeka</h1>
@@ -63,7 +74,7 @@ const MedicineDetails = () => {
                                             <Button name={"Izmijeni"} handleClick={edit} />
                                         </div>
                                         <div id="delete" className="col-2">
-                                            <Button name={"Izbriši"} />
+                                            <Button name={"Izbriši"} handleClick={removeData}/>
                                         </div>
                                     </div>
                                 </div>
