@@ -48,8 +48,8 @@ public class MedicineController {
     }
 
     @GetMapping(path = "/search")
-    public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm){
-        System.out.println(searchTerm);
-        return new ResponseEntity<>(service.search(searchTerm), HttpStatus.OK);
+    public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm,
+                                    @RequestParam("classification") Long id){
+        return new ResponseEntity<>(service.search(searchTerm, id), HttpStatus.OK);
     }
 }

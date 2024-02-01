@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     List<Medicine> findByClassificationId(Long classificationId);
-    @Query("select m from Medicine m where (:searchTerm is null OR lower(m.proprietaryName) like concat('%', lower(:searchTerm), '%') OR lower(m.notProprietaryName) like concat('%', lower(:searchTerm), '%') ) ")
-    public List<Medicine> search(String searchTerm);
+    @Query("select m from Medicine m where (:searchTerm is null OR lower(m.proprietaryName) like concat('%', lower(:searchTerm), '%') OR lower(m.notProprietaryName) like concat('%', lower(:searchTerm), '%') ) AND m.classification.id = :classificationId")
+    public List<Medicine> search(String searchTerm, Long classificationId);
 }

@@ -46,7 +46,8 @@ const Medicines = () => {
 
     const serach = (searchTerm) => {
         const params = {
-            searchTerm: searchTerm
+            searchTerm: searchTerm,
+            classification: classification.id
         }
         getWithParams("http://localhost:8080/api/medicine/search", params)
         .then((res) => {

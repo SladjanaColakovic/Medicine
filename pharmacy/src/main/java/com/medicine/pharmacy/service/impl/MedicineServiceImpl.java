@@ -66,7 +66,7 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public List<Medicine> search(String searchTerm) {
-        return repository.search(searchTerm);
+    public List<Medicine> search(String searchTerm, Long classificationId) {
+        return repository.search(searchTerm, classificationId);
     }
 }
