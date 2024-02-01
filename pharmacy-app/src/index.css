@@ -168,3 +168,44 @@ select{
 #delete button:hover{
   background-color: rgb(144, 88, 88);
 }
+
+.new-classification {
+  font-size: 13px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  position: fixed;
+  top: 80px;
+  overflow: auto;
+
+}
+
+.new-classification li button {
+  display: block;
+  color: rgb(236, 232, 232);
+  padding: 10px 16px;
+  border: none;
+  width: 93%;
+  margin: auto;
+  margin-top: 5px;
+  background-color: #828080;
+}
+
+.new-classification li button:hover {
+  background-color: #6b6a6a;
+}
+
+#add-btn button {
+  display: block;
+  color: rgb(236, 232, 232);
+  padding: 10px 20px;
+  border: none;
+  margin-top: 5px;
+  background-color: #828080;
+  width: 100%;
+}
+
+#add-btn button:hover {
+  background-color: #6b6a6a;
+}

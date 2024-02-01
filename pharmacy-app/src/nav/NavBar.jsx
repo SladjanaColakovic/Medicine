@@ -24,6 +24,10 @@ const NavBar = () => {
         navigate("/devices", {replace: true})
     }
 
+    const addNew = () => {
+        navigate("/add", {replace: true})
+    }
+
     return (
         <div className="sidenav">
             <SvgButton handleClick={showMedicines} name={"Lijekovi"} icon={"medicine"}></SvgButton>
@@ -32,6 +36,8 @@ const NavBar = () => {
             <SvgButton handleClick={showSanitaryMaterials} name={"Sanitetski materijal"} icon={"sanitary material"}></SvgButton>
             <SvgButton handleClick={showMedicalDiagnosticsDevices} name={"Dijagnostika"} icon={"medical devices"}></SvgButton>
             <SvgButton handleClick={showMedicalAids} name={"Medicinska pomagala"} icon={"medical aids"}></SvgButton>
+            <SvgButton handleClick={addNew} name={"Dodaj novi"} icon={"add"}></SvgButton>
+
         </div>
     );
 }

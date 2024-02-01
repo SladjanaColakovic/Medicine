@@ -8,6 +8,7 @@ import SanitaryMaterial from './sanitary-material/SanitaryMaterial'
 import Aids from './aids/Aids'
 import Devices from './devices/Devices'
 import MedicineDetails from './medicines/MedicineDetails';
+import New from './new/New';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/sanitaryMaterials' element={<SanitaryMaterial />}></Route>
         <Route path='/aids' element={<Aids />}></Route>
         <Route path='/devices' element={<Devices />}></Route>
+        <Route path='/add' element={<New />}></Route>
       </Route>
     </Routes>
   );
