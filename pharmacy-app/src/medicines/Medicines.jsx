@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { get } from "../http-client/httpClient";
+import { get, getWithParams } from "../http-client/httpClient";
 import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
+import Search from "../inputs/Search";
+
 
 const Medicines = () => {
 
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);
-    const [classification, setClassification] = useState({id: 1, name: "Alimentarni trakt i metabolizam"});
+    const [classification, setClassification] = useState({ id: 1, name: "Alimentarni trakt i metabolizam" });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,7 +26,7 @@ const Medicines = () => {
     }, []);
 
     const changeClassification = (item) => {
-        setClassification({id: item.id, name: item.name});
+        setClassification({ id: item.id, name: item.name });
         getData(item.id);
     }
 
@@ -42,6 +44,19 @@ const Medicines = () => {
         navigate("medicineDetails/" + id);
     }
 
+    const serach = (searchTerm) => {
+        const params = {
+            searchTerm: searchTerm
+        }
+        getWithParams("http://localhost:8080/api/medicine/search", params)
+        .then((res) => {
+            setData(res.data);
+        })
+        .catch((error) => {
+            console.log(error.message);
+        })
+    }
+
     return (
         <div className="main">
             <ul className="classification">
@@ -52,6 +67,12 @@ const Medicines = () => {
             <div className="content">
                 <h1>Lijekovi</h1>
                 <h3>{classification && classification.name}</h3>
+                <div className="row">
+                    <div className="col-9"></div>
+                    <div className="col-3">
+                        <Search handleSearch={(e) => serach(e.target.value)}/>
+                    </div>
+                </div>
                 {data && data.map((medicine) => (<div className="row" key={medicine.id}>
                     <div className="box">
                         <div className="row">
@@ -63,7 +84,7 @@ const Medicines = () => {
                                 <p><span>Nezaštićeni naziv lijeka:</span> {medicine.notProprietaryName}</p>
                                 <p className="long-paragraph"><span>Neželjena dejstva:</span> {medicine.sideEffects}</p>
                                 <p className="long-paragraph"><span>Metod primjene:</span> {medicine.applicationMethod}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(medicine.id)}/>
+                                <Button name={"Detalji"} handleClick={() => showDetails(medicine.id)} />
                             </div>
                         </div>
                     </div>

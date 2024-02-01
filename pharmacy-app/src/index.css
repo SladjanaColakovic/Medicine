@@ -150,6 +150,12 @@ input{
   width: 100%;
   padding: 8px 4px;
 }
+
+input[type=search]{
+  margin: 10px;
+  width: 100%;
+}
+
 select{
   width: 100%;
   padding: 8px 4px;
