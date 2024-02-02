@@ -17,8 +17,11 @@ public class MedicalCosmetics {
     private Long id;
 
     private String name;
+    @Column(length = 1024)
     private String description;
+    @Column(length = 1024)
     private String applicationMethod;
+    @Column(length = 1024)
     private String composition;
     private MedicineCosmeticsForm form;
 

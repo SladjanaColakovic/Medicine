@@ -50,7 +50,6 @@ const NewMedicine = () => {
         }
         post("http://localhost:8080/api/medicine", data)
         .then((res) => {
-            console.log(res.data);
             navigate("/", {replace: true})
         })
         .catch((error) => {
