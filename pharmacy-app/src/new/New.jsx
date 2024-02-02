@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../buttons/Button";
 import NewMedicine from "./NewMedicine";
 import NewMedicalCosmetic from "./NewMedicalCosmetic";
+import NewSupplement from "./NewSupplement";
 
 const New = () => {
 
@@ -29,6 +30,7 @@ const New = () => {
                     <div className="col-10">
                         {title === 'Novi lijek' && <NewMedicine />}
                         {title === 'Novi kozmetički preparat' && <NewMedicalCosmetic />}
+                        {title === 'Novi dijetetski suplement' && <NewSupplement />}
                     </div>
                     <div className="col-1"></div>
                 </div>
