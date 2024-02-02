@@ -3,6 +3,9 @@ import Button from "../buttons/Button";
 import NewMedicine from "./NewMedicine";
 import NewMedicalCosmetic from "./NewMedicalCosmetic";
 import NewSupplement from "./NewSupplement";
+import NewSanitaryMaterial from "./NewSanitaryMaterial";
+import NewDevice from "./NewDevice";
+import NewMedicalAid from "./NewMedicalAid";
 
 const New = () => {
 
@@ -31,6 +34,9 @@ const New = () => {
                         {title === 'Novi lijek' && <NewMedicine />}
                         {title === 'Novi kozmetički preparat' && <NewMedicalCosmetic />}
                         {title === 'Novi dijetetski suplement' && <NewSupplement />}
+                        {title === 'Novi artikal sanitetskog materijala' && <NewSanitaryMaterial />}
+                        {title === 'Novi uređaj za dijagnostiku' && <NewDevice />}
+                        {title === 'Novo medicinsko pomagalo' && <NewMedicalAid />}
                     </div>
                     <div className="col-1"></div>
                 </div>
