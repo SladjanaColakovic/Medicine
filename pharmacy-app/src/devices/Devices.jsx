@@ -3,10 +3,12 @@ import Button from "../buttons/Button";
 import { useEffect, useState } from "react";
 import brufen from "../images/brufen600.jpg"
 import { get, getWithParams } from "../http-client/httpClient";
+import { useNavigate } from "react-router-dom";
 
 const Devices = () => {
 
     const [data, setData] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         get("http://localhost:8080/api/devices")
@@ -19,7 +21,9 @@ const Devices = () => {
 
     }, []);
 
-    const showDetails = (id) => { }
+    const showDetails = (id) => {
+        navigate("/deviceDetails/" + id);
+    }
 
     const search = (searchTerm) => {
         const params = {

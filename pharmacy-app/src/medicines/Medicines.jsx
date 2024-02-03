@@ -41,7 +41,7 @@ const Medicines = () => {
     }
 
     const showDetails = (id) => {
-        navigate("medicineDetails/" + id);
+        navigate("/medicineDetails/" + id);
     }
 
     const serach = (searchTerm) => {
