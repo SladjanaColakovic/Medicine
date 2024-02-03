@@ -46,4 +46,9 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<MedicalDiagnosticsDevice> search(String searchTerm) {
+        return repository.search(searchTerm);
+    }
 }

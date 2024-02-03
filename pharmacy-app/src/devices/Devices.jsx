@@ -2,7 +2,7 @@ import Search from "../inputs/Search";
 import Button from "../buttons/Button";
 import { useEffect, useState } from "react";
 import brufen from "../images/brufen600.jpg"
-import { get } from "../http-client/httpClient";
+import { get, getWithParams } from "../http-client/httpClient";
 
 const Devices = () => {
 
@@ -19,9 +19,20 @@ const Devices = () => {
 
     }, []);
 
-    const showDetails = (id) => {}
+    const showDetails = (id) => { }
 
-    const search = (searchTerm) => {}
+    const search = (searchTerm) => {
+        const params = {
+            searchTerm: searchTerm,
+        }
+        getWithParams("http://localhost:8080/api/devices/search", params)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }
 
     return (
         <div className="main">
@@ -30,7 +41,7 @@ const Devices = () => {
                 <div className="row">
                     <div className="col-9"></div>
                     <div className="col-3">
-                        <Search handleSearch={(e) => search(e.target.value)}/>
+                        <Search handleSearch={(e) => search(e.target.value)} />
                     </div>
                 </div>
                 {data && data.map((device) => (<div className="row" key={device.id}>
