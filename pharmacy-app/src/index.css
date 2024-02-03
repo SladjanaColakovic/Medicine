@@ -73,6 +73,11 @@ svg {
   overflow: hidden;
 }
 
+.content-margin>.row {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 h1 {
   text-align: center;
   color: #6b6a6a !important;
@@ -129,6 +134,21 @@ span {
   background-color: #6b6a6a;
 }
 
+.content-margin button {
+  display: block;
+  color: rgb(236, 232, 232);
+  padding: 10px 20px;
+  border: none;
+  margin-top: 5px;
+  background-color: #828080;
+  float: left;
+}
+
+.content-margin button:hover {
+  background-color: #6b6a6a;
+}
+
+
 .box .row .col-6 button {
   display: block;
   color: rgb(236, 232, 232);
@@ -142,30 +162,30 @@ span {
   background-color: #6b6a6a;
 }
 
-textarea{
+textarea {
   width: 100%;
 }
 
-input{
+input {
   width: 100%;
   padding: 8px 4px;
 }
 
-input[type=search]{
+input[type=search] {
   margin: 10px;
   width: 100%;
 }
 
-select{
+select {
   width: 100%;
   padding: 8px 4px;
 }
 
-#delete button{
+#delete button {
   background-color: rgb(169, 105, 105);
 }
 
-#delete button:hover{
+#delete button:hover {
   background-color: rgb(144, 88, 88);
 }
 

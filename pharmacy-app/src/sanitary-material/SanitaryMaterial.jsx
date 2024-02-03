@@ -1,7 +1,7 @@
 const SanitaryMaterial = () => {
     return ( 
         <div className="main">
-            <h1>Sanitary materials</h1>
+            <h1>Sanitetski materijal</h1>
         </div>
      );
 }

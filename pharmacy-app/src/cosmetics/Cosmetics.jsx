@@ -1,7 +1,7 @@
 const Cosmetics = () => {
     return ( 
         <div className="main">
-            <h1>Medical cosmetics</h1>
+            <h1>Medicinska kozmetika</h1>
         </div>
      );
 }

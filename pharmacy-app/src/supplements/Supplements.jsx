@@ -1,7 +1,7 @@
 const Supplements = () => {
     return ( 
         <div className="main">
-            <h1>Dietary supplements</h1>
+            <h1>Dijetetski suplementi</h1>
         </div>
      );
 }
