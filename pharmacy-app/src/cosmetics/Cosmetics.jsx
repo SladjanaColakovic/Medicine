@@ -1,7 +1,69 @@
+import brufen from "../images/brufen600.jpg"
+import Search from "../inputs/Search";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { get, getWithParams } from "../http-client/httpClient";
+import Button from "../buttons/Button";
+
 const Cosmetics = () => {
+
+    const [data, setData] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        get("http://localhost:8080/api/cosmetics")
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+
+    }, []);
+
+    const showDetails = (id) => {
+        navigate("/cosmeticDetails/" + id);
+    }
+
+    const search = (searchTerm) => {
+        const params = {
+            searchTerm: searchTerm,
+        }
+        getWithParams("http://localhost:8080/api/cosmetics/search", params)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }
+
     return ( 
         <div className="main">
-            <h1>Medicinska kozmetika</h1>
+            <div className="content-margin">
+                <h1>Uređaji za medicinsku dijagnostiku</h1>
+                <div className="row">
+                    <div className="col-9"></div>
+                    <div className="col-3">
+                        <Search handleSearch={(e) => search(e.target.value)} />
+                    </div>
+                </div>
+                {data && data.map((cosmetic) => (<div className="row" key={cosmetic.id}>
+                    <div className="box">
+                        <div className="row">
+                            <div className="col-5">
+                                <img src={brufen} alt="" />
+                            </div>
+                            <div className="col-7">
+                                <p> <span>Naziv:</span> {cosmetic.name}</p>
+                                <p className="long-paragraph"><span>Opis:</span> {cosmetic.description}</p>
+                                <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {cosmetic.composition}</p>
+                                <Button name={"Detalji"} handleClick={() => showDetails(cosmetic.id)} />
+                            </div>
+                        </div>
+                    </div>
+                </div>))}
+            </div>
         </div>
      );
 }
