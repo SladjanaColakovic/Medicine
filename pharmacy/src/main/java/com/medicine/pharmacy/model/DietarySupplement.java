@@ -15,12 +15,19 @@ public class DietarySupplement {
     private Long id;
 
     private String name;
+    @Column(length = 1024)
     private String composition;
+    @Column(length = 1024)
     private String dose;
+    @Column(length = 1024)
     private String applicationMethod;
+    @Column(length = 1024)
     private String indications;
+    @Column(length = 1024)
     private String interactions;
+    @Column(length = 1024)
     private String contraindications;
+    @Column(length = 1024)
     private String sideEffects;
 
     @OneToOne

@@ -12,5 +12,6 @@ public interface DietarySupplementService {
     DietarySupplement getById(Long id);
     DietarySupplement edit(EditDietarySupplementDto editDietarySupplement);
     void delete(Long id);
+    List<DietarySupplement> search(String searchTerm);
 
 }

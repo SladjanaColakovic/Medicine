@@ -16,6 +16,7 @@ public class MedicalAid {
     private Long id;
 
     private String name;
+    @Column(length = 1024)
     private String description;
 
     @OneToOne

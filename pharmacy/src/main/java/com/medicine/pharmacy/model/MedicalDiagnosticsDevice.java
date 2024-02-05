@@ -16,7 +16,9 @@ public class MedicalDiagnosticsDevice {
     private Long id;
 
     private String name;
+    @Column(length = 1024)
     private String description;
+    @Column(length = 1024)
     private String guide;
 
     @OneToOne

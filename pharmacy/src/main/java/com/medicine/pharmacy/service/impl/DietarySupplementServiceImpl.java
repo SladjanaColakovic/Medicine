@@ -46,4 +46,9 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<DietarySupplement> search(String searchTerm) {
+        return repository.search(searchTerm);
+    }
 }
