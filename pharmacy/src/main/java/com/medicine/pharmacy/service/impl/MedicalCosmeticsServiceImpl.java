@@ -45,4 +45,9 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<MedicalCosmetics> search(String searchTerm) {
+        return repository.search(searchTerm);
+    }
 }

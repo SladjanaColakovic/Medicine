@@ -41,7 +41,7 @@ const Cosmetics = () => {
     return ( 
         <div className="main">
             <div className="content-margin">
-                <h1>Uređaji za medicinsku dijagnostiku</h1>
+                <h1>Medicinska kozmetika</h1>
                 <div className="row">
                     <div className="col-9"></div>
                     <div className="col-3">
@@ -56,6 +56,7 @@ const Cosmetics = () => {
                             </div>
                             <div className="col-7">
                                 <p> <span>Naziv:</span> {cosmetic.name}</p>
+                                <p> <span>Oblik:</span> {cosmetic.form}</p>
                                 <p className="long-paragraph"><span>Opis:</span> {cosmetic.description}</p>
                                 <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {cosmetic.composition}</p>
                                 <Button name={"Detalji"} handleClick={() => showDetails(cosmetic.id)} />

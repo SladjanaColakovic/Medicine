@@ -13,4 +13,5 @@ public interface MedicalCosmeticsService {
     MedicalCosmetics getById(Long id);
     MedicalCosmetics edit(EditMedicalCosmeticsDto editMedicalCosmetics);
     void delete(Long id);
+    List<MedicalCosmetics> search(String searchTerm);
 }
