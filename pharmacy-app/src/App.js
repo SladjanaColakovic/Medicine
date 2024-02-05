@@ -11,6 +11,7 @@ import MedicineDetails from './medicines/MedicineDetails';
 import New from './new/New';
 import DeviceDetails from './devices/DeviceDetails';
 import CosmeticDetails from './cosmetics/CosmeticDetails';
+import SupplementDetails from './supplements/SupplementDetails';
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
         <Route path='/' element={<Medicines />}></Route>
         <Route path='/medicineDetails/:id' element={<MedicineDetails/>}></Route>
         <Route path='/supplements' element={<Supplements />}></Route>
-        <Route path='cosmetics' element={<Cosmetics />}></Route>
-        <Route path='cosmeticDetails/:id' element={<CosmeticDetails />}></Route>
+        <Route path='/supplementDetails/:id' element={<SupplementDetails />}></Route>
+        <Route path='/cosmetics' element={<Cosmetics />}></Route>
+        <Route path='/cosmeticDetails/:id' element={<CosmeticDetails />}></Route>
         <Route path='/sanitaryMaterials' element={<SanitaryMaterial />}></Route>
         <Route path='/aids' element={<Aids />}></Route>
         <Route path='/devices' element={<Devices />}></Route>
