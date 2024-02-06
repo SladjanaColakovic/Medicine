@@ -12,4 +12,5 @@ public interface MedicalAidService {
     MedicalAid getById(Long id);
     MedicalAid edit(EditMedicalAidDto editMedicalAid);
     void delete(Long id);
+    List<MedicalAid> search(String searchTerm);
 }

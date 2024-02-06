@@ -46,4 +46,9 @@ public class MedicalAidServiceImpl implements MedicalAidService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<MedicalAid> search(String searchTerm) {
+        return repository.search(searchTerm);
+    }
 }
