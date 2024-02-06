@@ -12,6 +12,7 @@ import New from './new/New';
 import DeviceDetails from './devices/DeviceDetails';
 import CosmeticDetails from './cosmetics/CosmeticDetails';
 import SupplementDetails from './supplements/SupplementDetails';
+import AidDetails from './aids/AidDetails';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/cosmeticDetails/:id' element={<CosmeticDetails />}></Route>
         <Route path='/sanitaryMaterials' element={<SanitaryMaterial />}></Route>
         <Route path='/aids' element={<Aids />}></Route>
+        <Route path='/aidDetails/:id' element={<AidDetails />}></Route>
         <Route path='/devices' element={<Devices />}></Route>
         <Route path='/deviceDetails/:id' element={<DeviceDetails/>}></Route>
         <Route path='/add' element={<New />}></Route>
