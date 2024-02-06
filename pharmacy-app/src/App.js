@@ -13,6 +13,7 @@ import DeviceDetails from './devices/DeviceDetails';
 import CosmeticDetails from './cosmetics/CosmeticDetails';
 import SupplementDetails from './supplements/SupplementDetails';
 import AidDetails from './aids/AidDetails';
+import SanitaryMaterialDetails from './sanitary-material/SanitaryMaterialDetails';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/cosmetics' element={<Cosmetics />}></Route>
         <Route path='/cosmeticDetails/:id' element={<CosmeticDetails />}></Route>
         <Route path='/sanitaryMaterials' element={<SanitaryMaterial />}></Route>
+        <Route path='/sanitaryMaterialDetails/:id' element={<SanitaryMaterialDetails />}></Route>
         <Route path='/aids' element={<Aids />}></Route>
         <Route path='/aidDetails/:id' element={<AidDetails />}></Route>
         <Route path='/devices' element={<Devices />}></Route>
