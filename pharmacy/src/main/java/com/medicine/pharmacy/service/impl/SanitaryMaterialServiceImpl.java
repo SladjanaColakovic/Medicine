@@ -45,4 +45,9 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<SanitaryMaterial> search(String searchTerm) {
+        return repository.search(searchTerm);
+    }
 }

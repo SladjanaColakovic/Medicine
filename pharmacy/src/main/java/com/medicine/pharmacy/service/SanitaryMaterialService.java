@@ -13,4 +13,5 @@ public interface SanitaryMaterialService {
     SanitaryMaterial getById(Long id);
     SanitaryMaterial edit(EditSanitaryMaterialDto editSanitaryMaterial);
     void delete(Long id);
+    List<SanitaryMaterial> search(String searchTerm);
 }

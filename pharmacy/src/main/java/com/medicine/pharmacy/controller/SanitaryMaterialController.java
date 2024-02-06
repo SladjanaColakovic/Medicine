@@ -40,4 +40,9 @@ public class SanitaryMaterialController {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(path = "/search")
+    public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm){
+        return new ResponseEntity<>(service.search(searchTerm), HttpStatus.OK);
+    }
 }
