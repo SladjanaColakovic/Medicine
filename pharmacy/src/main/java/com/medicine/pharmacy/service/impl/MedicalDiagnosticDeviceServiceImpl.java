@@ -26,12 +26,7 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     @Override
     public MedicalDiagnosticsDevice add(NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice, MultipartFile image) {
         MedicalDiagnosticsDevice medicalDiagnosticsDevice = mapper.map(newMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
-        Image deviceImage = null;
-        try {
-            deviceImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        Image deviceImage = createImage(image);
         medicalDiagnosticsDevice.setImage(deviceImage);
         return repository.save(medicalDiagnosticsDevice);
     }
@@ -60,5 +55,23 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     @Override
     public List<MedicalDiagnosticsDevice> search(String searchTerm) {
         return repository.search(searchTerm);
+    }
+
+    @Override
+    public MedicalDiagnosticsDevice changeImage(Long id, MultipartFile image) {
+        MedicalDiagnosticsDevice device = repository.findById(id).orElse(null);
+        Image deviceImage = createImage(image);
+        device.setImage(deviceImage);
+        return repository.save(device);
+    }
+
+    private Image createImage(MultipartFile image){
+        Image createdImage = null;
+        try {
+            createdImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return createdImage;
     }
 }

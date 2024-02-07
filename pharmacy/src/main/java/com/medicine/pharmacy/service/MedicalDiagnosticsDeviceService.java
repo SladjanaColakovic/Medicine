@@ -14,4 +14,5 @@ public interface MedicalDiagnosticsDeviceService {
     MedicalDiagnosticsDevice edit(EditMedicalDiagnosticsDeviceDto editMedicalDiagnosticsDevice);
     void delete(Long id);
     List<MedicalDiagnosticsDevice> search(String searchTerm);
+    MedicalDiagnosticsDevice changeImage(Long id, MultipartFile image);
 }

@@ -11,6 +11,7 @@ const DeviceDetails = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const navigate = useNavigate();
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         get("http://localhost:8080/api/devices/" + id)
@@ -23,10 +24,8 @@ const DeviceDetails = () => {
     }, []);
 
     const edit = () => {
-        console.log(data);
         put("http://localhost:8080/api/devices", data)
             .then((res) => {
-                console.log(res.data);
                 setData(res.data);
             })
             .catch((error) => {
@@ -44,6 +43,28 @@ const DeviceDetails = () => {
             })
     }
 
+    const changeImage = (e) => {
+        if (!e.target.files[0] || e.target.files[0].length == 0) {
+            return;
+        }
+
+        if (e.target.files[0].type.match(/image\/*/) == null) {
+            return;
+        }
+        setSelectedFile(e.target.files[0]);
+
+        const formData = new FormData();
+        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+        formData.append("image", e.target.files[0], e.target.files[0].name);
+        put("http://localhost:8080/api/devices/image", formData)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }
+
     return (
         <div className="main">
             <h1>Detalji uređaja</h1>
@@ -55,7 +76,16 @@ const DeviceDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                <img style={{width: "270px", height: "auto"}} src={'data:image/jpeg;base64,' + data.image.data} alt="Centar" />
+                                    <div className="hero-image">
+                                        <img className="image" src={'data:image/jpeg;base64,' + data.image.data} />
+                                        <div id="input-file-button">
+                                            <label className="lbl-upload">
+                                                <input type="file" onChange={(e) => changeImage(e)} />
+                                                input
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {/* <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + data.image.data} alt="Centar" /> */}
                                     <div className="row">
                                         <div className="col-2">
                                             <Button name={"Izmijeni"} handleClick={edit} />

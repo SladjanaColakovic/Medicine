@@ -47,4 +47,10 @@ public class MedicalDiagnosticsDeviceController {
     public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm){
         return new ResponseEntity<>(service.search(searchTerm), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/image")
+    public ResponseEntity<?> changeImage(@RequestPart("id") Long id,
+                                         @RequestPart("image") MultipartFile image) {
+        return new ResponseEntity<>(service.changeImage(id, image), HttpStatus.OK);
+    }
 }
