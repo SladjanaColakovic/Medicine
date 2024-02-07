@@ -8,6 +8,10 @@ export const post = (url, data) => {
     return axios.post(url, data);
 }
 
+export const postWithParams = (url, data, params) => {
+    return axios.post(url, data, {params});
+}
+
 export const put = (url, data) => {
     return axios.put(url, data);
 }

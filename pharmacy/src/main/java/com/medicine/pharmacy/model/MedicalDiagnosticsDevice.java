@@ -21,6 +21,6 @@ public class MedicalDiagnosticsDevice {
     @Column(length = 1024)
     private String guide;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 }

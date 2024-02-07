@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/api/devices")
@@ -16,8 +17,9 @@ public class MedicalDiagnosticsDeviceController {
     private MedicalDiagnosticsDeviceService service;
 
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice){
-        return new ResponseEntity<>(service.add(newMedicalDiagnosticsDevice), HttpStatus.CREATED);
+    public ResponseEntity<?> add(@RequestPart("device") NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice,
+                                 @RequestPart("image") MultipartFile image){
+        return new ResponseEntity<>(service.add(newMedicalDiagnosticsDevice, image), HttpStatus.CREATED);
     }
 
     @GetMapping

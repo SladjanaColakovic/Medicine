@@ -2,13 +2,16 @@ package com.medicine.pharmacy.service.impl;
 
 import com.medicine.pharmacy.dto.EditMedicalDiagnosticsDeviceDto;
 import com.medicine.pharmacy.dto.NewMedicalDiagnosticsDeviceDto;
+import com.medicine.pharmacy.model.Image;
 import com.medicine.pharmacy.model.MedicalDiagnosticsDevice;
 import com.medicine.pharmacy.repository.MedicalDiagnosticsDeviceRepository;
 import com.medicine.pharmacy.service.MedicalDiagnosticsDeviceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -21,8 +24,15 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     private ModelMapper mapper;
 
     @Override
-    public MedicalDiagnosticsDevice add(NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice) {
+    public MedicalDiagnosticsDevice add(NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice, MultipartFile image) {
         MedicalDiagnosticsDevice medicalDiagnosticsDevice = mapper.map(newMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
+        Image deviceImage = null;
+        try {
+            deviceImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        medicalDiagnosticsDevice.setImage(deviceImage);
         return repository.save(medicalDiagnosticsDevice);
     }
 

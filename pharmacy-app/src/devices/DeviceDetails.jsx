@@ -55,7 +55,7 @@ const DeviceDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <img src={brufen} alt="" />
+                                <img style={{width: "270px", height: "auto"}} src={'data:image/jpeg;base64,' + data.image.data} alt="Centar" />
                                     <div className="row">
                                         <div className="col-2">
                                             <Button name={"Izmijeni"} handleClick={edit} />

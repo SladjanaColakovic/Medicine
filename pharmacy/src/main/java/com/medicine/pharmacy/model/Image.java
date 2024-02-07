@@ -22,4 +22,10 @@ public class Image {
     private String type;
     @JdbcType(VarbinaryJdbcType.class)
     private byte[] data;
+
+    public Image(String name, String type, byte[] data) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+    }
 }

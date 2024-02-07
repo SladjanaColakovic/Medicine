@@ -1,7 +1,6 @@
 import Search from "../inputs/Search";
 import Button from "../buttons/Button";
 import { useEffect, useState } from "react";
-import brufen from "../images/brufen600.jpg"
 import { get, getWithParams } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
 
@@ -52,7 +51,7 @@ const Devices = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={brufen} alt="" />
+                                <img style={{width: "270px", height: "auto"}} src={'data:image/jpeg;base64,' + device.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <p> <span>Naziv:</span> {device.name}</p>
