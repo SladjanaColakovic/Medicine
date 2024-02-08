@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { get, post } from '../http-client/httpClient'
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
-import noImage from "../images/no_image.jpg"
+import ImageUpload from "../inputs/ImageUpload";
 
 
 const NewMedicine = () => {
@@ -78,15 +78,7 @@ const NewMedicine = () => {
         <div className="bottom-margin">
             <div className="row">
                 <div className="col-6">
-                    <div className="hero-image">
-                        <img className="image" src={(selectedFile !== null) ? URL.createObjectURL(selectedFile) : noImage} alt="Centar" />
-                        <div id="input-file-button">
-                            <label className="lbl-upload">
-                                <input type="file" onChange={(e) => addImage(e)} />
-                                input
-                            </label>
-                        </div>
-                    </div>
+                <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)}/>
                     <Input name={"Zaštićeno ime:"} value={proprietaryName} type={"text"} changeValue={(e) => setProprietaryName(e.target.value)} />
                     <Input name={"Nezaštićeno ime:"} value={notProprietaryName} type={"text"} changeValue={(e) => setNotProprietaryName(e.target.value)} />
                     {classifications && <Select items={classifications} name={"Klasifikacija lijeka:"} selectedItem={classification.id} setItem={(e) => setClassification({ ...classification, id: e.target.value })} />}

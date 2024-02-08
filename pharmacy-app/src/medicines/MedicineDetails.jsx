@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { get, put, remove } from "../http-client/httpClient"
-import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import Select from "../inputs/Select";
 import TextArea from "../inputs/TextArea";
+import ChangeImage from "../inputs/ChangeImage";
 
 const MedicineDetails = () => {
     const { id } = useParams();
@@ -87,15 +87,7 @@ const MedicineDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <div className="hero-image">
-                                        <img className="image" src={'data:image/jpeg;base64,' + data.image.data} />
-                                        <div id="input-file-button">
-                                            <label className="lbl-upload">
-                                                <input type="file" onChange={(e) => changeImage(e)} />
-                                                input
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)}/>
                                     <br />
                                     <Input name={"Zaštićeni naziv lijeka:"} type={"text"} value={data.proprietaryName} changeValue={(e) => setData({ ...data, proprietaryName: e.target.value })} />
                                     <Input name={"Nezaštićeni naziv lijeka:"} type={"text"} value={data.notProprietaryName} changeValue={(e) => setData({ ...data, notProprietaryName: e.target.value })} />

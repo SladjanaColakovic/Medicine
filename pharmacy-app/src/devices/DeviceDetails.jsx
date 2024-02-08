@@ -4,6 +4,7 @@ import { get, put, remove } from "../http-client/httpClient";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
+import ChangeImage from "../inputs/ChangeImage";
 
 const DeviceDetails = () => {
 
@@ -75,16 +76,7 @@ const DeviceDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <div className="hero-image">
-                                        <img className="image" src={'data:image/jpeg;base64,' + data.image.data} />
-                                        <div id="input-file-button">
-                                            <label className="lbl-upload">
-                                                <input type="file" onChange={(e) => changeImage(e)} />
-                                                input
-                                            </label>
-                                        </div>
-                                    </div>
-                                    {/* <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + data.image.data} alt="Centar" /> */}
+                                    <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)} />
                                     <div className="row">
                                         <div className="col-2">
                                             <Button name={"Izmijeni"} handleClick={edit} />

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { get, getWithParams } from "../http-client/httpClient";
-import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import Search from "../inputs/Search";

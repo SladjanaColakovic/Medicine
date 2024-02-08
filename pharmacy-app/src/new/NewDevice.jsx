@@ -4,7 +4,7 @@ import Button from "../buttons/Button";
 import { useState } from "react";
 import { post } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
-import noImage from "../images/no_image.jpg"
+import ImageUpload from "../inputs/ImageUpload";
 
 const NewDevice = () => {
 
@@ -49,15 +49,7 @@ const NewDevice = () => {
         <div className="bottom-margin">
             <div className="row">
                 <div className="col-6">
-                    <div className="hero-image">
-                        <img className="image" src={(selectedFile !== null) ? URL.createObjectURL(selectedFile) : noImage} alt="Centar" />
-                        <div id="input-file-button">
-                            <label className="lbl-upload">
-                                <input type="file" onChange={(e) => addImage(e)} />
-                                input
-                            </label>
-                        </div>
-                    </div>
+                <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)}/>
                 </div>
                 <div className="col-6">
                     <Input name={"Naziv:"} value={name} type={"text"} changeValue={(e) => setName(e.target.value)} />
