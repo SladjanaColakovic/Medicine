@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { get, put, remove } from "../http-client/httpClient";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
-import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 
 const DeviceDetails = () => {

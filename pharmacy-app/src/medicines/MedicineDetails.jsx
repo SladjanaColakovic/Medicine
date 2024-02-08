@@ -11,6 +11,8 @@ const MedicineDetails = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,12 +46,34 @@ const MedicineDetails = () => {
 
     const removeData = () => {
         remove("http://localhost:8080/api/medicine/" + data.id)
-        .then(() => {
-            navigate("/", {replace: true})
-        })
-        .catch((error) => {
-            console.log(error.message)
-        })
+            .then(() => {
+                navigate("/", { replace: true })
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }
+
+    const changeImage = (e) => {
+        if (!e.target.files[0] || e.target.files[0].length == 0) {
+            return;
+        }
+
+        if (e.target.files[0].type.match(/image\/*/) == null) {
+            return;
+        }
+        setSelectedFile(e.target.files[0]);
+
+        const formData = new FormData();
+        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+        formData.append("image", e.target.files[0], e.target.files[0].name);
+        put("http://localhost:8080/api/medicine/image", formData)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
     }
 
     return (
@@ -63,7 +87,16 @@ const MedicineDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <img src={brufen} alt="" />
+                                    <div className="hero-image">
+                                        <img className="image" src={'data:image/jpeg;base64,' + data.image.data} />
+                                        <div id="input-file-button">
+                                            <label className="lbl-upload">
+                                                <input type="file" onChange={(e) => changeImage(e)} />
+                                                input
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <br />
                                     <Input name={"Zaštićeni naziv lijeka:"} type={"text"} value={data.proprietaryName} changeValue={(e) => setData({ ...data, proprietaryName: e.target.value })} />
                                     <Input name={"Nezaštićeni naziv lijeka:"} type={"text"} value={data.notProprietaryName} changeValue={(e) => setData({ ...data, notProprietaryName: e.target.value })} />
                                     <Select items={classifications} selectedItem={data.classification.id} name={"Klasifikacija lijeka:"} setItem={(e) => setData({ ...data, classification: { ...data.classification, id: e.target.value } })} />
@@ -74,7 +107,7 @@ const MedicineDetails = () => {
                                             <Button name={"Izmijeni"} handleClick={edit} />
                                         </div>
                                         <div id="delete" className="col-2">
-                                            <Button name={"Izbriši"} handleClick={removeData}/>
+                                            <Button name={"Izbriši"} handleClick={removeData} />
                                         </div>
                                     </div>
                                 </div>

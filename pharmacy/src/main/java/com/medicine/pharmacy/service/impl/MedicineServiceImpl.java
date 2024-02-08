@@ -2,14 +2,18 @@ package com.medicine.pharmacy.service.impl;
 
 import com.medicine.pharmacy.dto.EditMedicineDto;
 import com.medicine.pharmacy.dto.NewMedicineDto;
+import com.medicine.pharmacy.model.Image;
+import com.medicine.pharmacy.model.MedicalDiagnosticsDevice;
 import com.medicine.pharmacy.model.Medicine;
 import com.medicine.pharmacy.model.MedicineClassification;
 import com.medicine.pharmacy.repository.MedicineClassificationRepository;
 import com.medicine.pharmacy.repository.MedicineRepository;
+import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicineService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,10 +24,15 @@ public class MedicineServiceImpl implements MedicineService {
     private MedicineRepository repository;
 
     @Autowired
+    private ImageService imageService;
+
+    @Autowired
     private ModelMapper mapper;
     @Override
-    public Medicine add(NewMedicineDto newMedicine) {
+    public Medicine add(NewMedicineDto newMedicine, MultipartFile image) {
         Medicine medicine = mapper.map(newMedicine, Medicine.class);
+        Image medicineImage = imageService.createImage(image);
+        medicine.setImage(medicineImage);
         return repository.save(medicine);
     }
 
@@ -39,18 +48,6 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public Medicine edit(EditMedicineDto editMedicine) {
-        /*Medicine medicine = repository.findById(editMedicine.getId()).get();
-        MedicineClassification classification = classificationRepository.findById(editMedicine.getClassificationId()).get();
-        medicine.setDose(editMedicine.getDose());
-        medicine.setClassification(classification);
-        medicine.setComposition(editMedicine.getComposition());
-        medicine.setContraindications(editMedicine.getContraindications());
-        medicine.setApplicationMethod(editMedicine.getApplicationMethod());
-        medicine.setIndications(editMedicine.getIndications());
-        medicine.setInteractions(editMedicine.getInteractions());
-        medicine.setSideEffects(editMedicine.getSideEffects());
-        medicine.setNotProprietaryName(editMedicine.getNotProprietaryName());
-        medicine.setProprietaryName(editMedicine.getProprietaryName());*/
         Medicine edited = mapper.map(editMedicine, Medicine.class);
         return repository.save(edited);
     }
@@ -68,5 +65,13 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public List<Medicine> search(String searchTerm, Long classificationId) {
         return repository.search(searchTerm, classificationId);
+    }
+
+    @Override
+    public Medicine changeImage(Long id, MultipartFile image) {
+        Medicine medicine = repository.findById(id).orElse(null);
+        Image medicineImage = imageService.createImage(image);
+        medicine.setImage(medicineImage);
+        return repository.save(medicine);
     }
 }

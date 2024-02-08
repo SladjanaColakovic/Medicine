@@ -50,12 +50,12 @@ const Medicines = () => {
             classification: classification.id
         }
         getWithParams("http://localhost:8080/api/medicine/search", params)
-        .then((res) => {
-            setData(res.data);
-        })
-        .catch((error) => {
-            console.log(error.message);
-        })
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
     }
 
     return (
@@ -71,14 +71,14 @@ const Medicines = () => {
                 <div className="row">
                     <div className="col-9"></div>
                     <div className="col-3">
-                        <Search handleSearch={(e) => serach(e.target.value)}/>
+                        <Search handleSearch={(e) => serach(e.target.value)} />
                     </div>
                 </div>
                 {data && data.map((medicine) => (<div className="row" key={medicine.id}>
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={brufen} alt="" />
+                                <img src={'data:image/jpeg;base64,' + medicine.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <p> <span>Zaštićeni naziv lijeka:</span> {medicine.proprietaryName}</p>

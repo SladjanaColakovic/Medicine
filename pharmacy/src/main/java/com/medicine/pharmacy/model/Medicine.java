@@ -33,7 +33,7 @@ public class Medicine {
     @JoinColumn(name = "classification_id", referencedColumnName = "id")
     private MedicineClassification classification;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 
 
