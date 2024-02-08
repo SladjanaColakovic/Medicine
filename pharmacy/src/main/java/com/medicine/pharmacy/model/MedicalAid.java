@@ -19,6 +19,6 @@ public class MedicalAid {
     @Column(length = 1024)
     private String description;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 }

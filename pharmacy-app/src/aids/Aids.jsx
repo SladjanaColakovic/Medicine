@@ -39,7 +39,7 @@ const Aids = () => {
             })
     }
 
-    return ( 
+    return (
         <div className="main">
             <div className="content-margin">
                 <h1>Medicinska pomagala</h1>
@@ -49,23 +49,23 @@ const Aids = () => {
                         <Search handleSearch={(e) => search(e.target.value)} />
                     </div>
                 </div>
-                {data && data.map((device) => (<div className="row" key={device.id}>
+                {data && data.map((aid) => (<div className="row" key={aid.id}>
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={brufen} alt="" />
+                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + aid.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
-                                <p> <span>Naziv:</span> {device.name}</p>
-                                <p className="long-paragraph"><span>Opis:</span> {device.description}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(device.id)} />
+                                <p> <span>Naziv:</span> {aid.name}</p>
+                                <p className="long-paragraph"><span>Opis:</span> {aid.description}</p>
+                                <Button name={"Detalji"} handleClick={() => showDetails(aid.id)} />
                             </div>
                         </div>
                     </div>
                 </div>))}
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default Aids;
