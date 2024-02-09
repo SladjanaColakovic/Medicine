@@ -2,12 +2,15 @@ package com.medicine.pharmacy.service.impl;
 
 import com.medicine.pharmacy.dto.EditSanitaryMaterialDto;
 import com.medicine.pharmacy.dto.NewSanitaryMaterialDto;
+import com.medicine.pharmacy.model.Image;
 import com.medicine.pharmacy.model.SanitaryMaterial;
 import com.medicine.pharmacy.repository.SanitaryMaterialRepository;
+import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.SanitaryMaterialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,10 +21,14 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
     private SanitaryMaterialRepository repository;
     @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private ImageService imageService;
 
     @Override
-    public SanitaryMaterial add(NewSanitaryMaterialDto newSanitaryMaterial) {
+    public SanitaryMaterial add(NewSanitaryMaterialDto newSanitaryMaterial, MultipartFile image) {
         SanitaryMaterial sanitaryMaterial = mapper.map(newSanitaryMaterial, SanitaryMaterial.class);
+        Image materialImage = imageService.createImage(image);
+        sanitaryMaterial.setImage(materialImage);
         return repository.save(sanitaryMaterial);
     }
 
@@ -49,5 +56,13 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
     @Override
     public List<SanitaryMaterial> search(String searchTerm) {
         return repository.search(searchTerm);
+    }
+
+    @Override
+    public SanitaryMaterial changeImage(Long id, MultipartFile image) {
+        SanitaryMaterial material = repository.findById(id).orElse(null);
+        Image materialImage = imageService.createImage(image);
+        material.setImage(materialImage);
+        return repository.save(material);
     }
 }

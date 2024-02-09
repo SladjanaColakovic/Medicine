@@ -1,16 +1,17 @@
 import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
-import brufen from "../images/brufen600.jpg"
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { get, put, remove } from "../http-client/httpClient";
+import ChangeImage from "../inputs/ChangeImage";
 
 const SanitaryMaterialDetails = () => {
 
     const { id } = useParams();
     const [data, setData] = useState(null);
     const navigate = useNavigate();
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         get("http://localhost:8080/api/sanitaryMaterials/" + id)
@@ -42,6 +43,28 @@ const SanitaryMaterialDetails = () => {
             })
     }
 
+    const changeImage = (e) => {
+        if (!e.target.files[0] || e.target.files[0].length == 0) {
+            return;
+        }
+
+        if (e.target.files[0].type.match(/image\/*/) == null) {
+            return;
+        }
+        setSelectedFile(e.target.files[0]);
+
+        const formData = new FormData();
+        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+        formData.append("image", e.target.files[0], e.target.files[0].name);
+        put("http://localhost:8080/api/sanitaryMaterials/image", formData)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }
+
     return (
         <div className="main">
             <h1>Detalji sanitetskog materijala</h1>
@@ -53,7 +76,8 @@ const SanitaryMaterialDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <img src={brufen} alt="" />
+                                    <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)} />
+                                    <br />
                                     <div className="row">
                                         <div className="col-2">
                                             <Button name={"Izmijeni"} handleClick={edit} />

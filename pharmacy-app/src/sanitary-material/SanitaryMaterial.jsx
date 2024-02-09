@@ -50,16 +50,16 @@ const SanitaryMaterial = () => {
                         <Search handleSearch={(e) => search(e.target.value)} />
                     </div>
                 </div>
-                {data && data.map((device) => (<div className="row" key={device.id}>
+                {data && data.map((material) => (<div className="row" key={material.id}>
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={brufen} alt="" />
+                                <img src={'data:image/jpeg;base64,' + material.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
-                                <p> <span>Naziv:</span> {device.name}</p>
-                                <p className="long-paragraph"><span>Opis:</span> {device.description}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(device.id)} />
+                                <p> <span>Naziv:</span> {material.name}</p>
+                                <p className="long-paragraph"><span>Opis:</span> {material.description}</p>
+                                <Button name={"Detalji"} handleClick={() => showDetails(material.id)} />
                             </div>
                         </div>
                     </div>

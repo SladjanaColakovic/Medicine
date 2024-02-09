@@ -1,12 +1,14 @@
 package com.medicine.pharmacy.controller;
 
 import com.medicine.pharmacy.dto.EditSanitaryMaterialDto;
+import com.medicine.pharmacy.dto.NewMedicineDto;
 import com.medicine.pharmacy.dto.NewSanitaryMaterialDto;
 import com.medicine.pharmacy.service.SanitaryMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/api/sanitaryMaterials")
@@ -16,8 +18,9 @@ public class SanitaryMaterialController {
     private SanitaryMaterialService service;
 
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody NewSanitaryMaterialDto newSanitaryMaterial){
-        return new ResponseEntity<>(service.add(newSanitaryMaterial), HttpStatus.CREATED);
+    public ResponseEntity<?> add(@RequestPart("material") NewSanitaryMaterialDto newSanitaryMaterial,
+                                 @RequestPart("image") MultipartFile image){
+        return new ResponseEntity<>(service.add(newSanitaryMaterial, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -44,5 +47,11 @@ public class SanitaryMaterialController {
     @GetMapping(path = "/search")
     public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm){
         return new ResponseEntity<>(service.search(searchTerm), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/image")
+    public ResponseEntity<?> changeImage(@RequestPart("id") Long id,
+                                         @RequestPart("image") MultipartFile image) {
+        return new ResponseEntity<>(service.changeImage(id, image), HttpStatus.OK);
     }
 }
