@@ -33,10 +33,8 @@ const MedicineDetails = () => {
     }, []);
 
     const edit = () => {
-        console.log(data);
         put("http://localhost:8080/api/medicine", data)
             .then((res) => {
-                console.log(res.data);
                 setData(res.data);
             })
             .catch((error) => {

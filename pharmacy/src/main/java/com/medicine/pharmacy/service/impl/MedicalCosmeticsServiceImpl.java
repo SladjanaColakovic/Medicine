@@ -2,12 +2,15 @@ package com.medicine.pharmacy.service.impl;
 
 import com.medicine.pharmacy.dto.EditMedicalCosmeticsDto;
 import com.medicine.pharmacy.dto.NewMedicalCosmeticsDto;
+import com.medicine.pharmacy.model.Image;
 import com.medicine.pharmacy.model.MedicalCosmetics;
 import com.medicine.pharmacy.repository.MedicalCosmeticsRepository;
+import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicalCosmeticsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,9 +22,14 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
 
     @Autowired
     private ModelMapper mapper;
+
+    @Autowired
+    private ImageService imageService;
     @Override
-    public MedicalCosmetics add(NewMedicalCosmeticsDto newMedicalCosmetics) {
+    public MedicalCosmetics add(NewMedicalCosmeticsDto newMedicalCosmetics, MultipartFile image) {
         MedicalCosmetics medicalCosmetics = mapper.map(newMedicalCosmetics, MedicalCosmetics.class);
+        Image cosmeticImage = imageService.createImage(image);
+        medicalCosmetics.setImage(cosmeticImage);
         return repository.save(medicalCosmetics);
     }
 
@@ -49,5 +57,13 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
     @Override
     public List<MedicalCosmetics> search(String searchTerm) {
         return repository.search(searchTerm);
+    }
+
+    @Override
+    public MedicalCosmetics changeImage(Long id, MultipartFile image) {
+        MedicalCosmetics cosmetic = repository.findById(id).orElse(null);
+        Image cosmeticImage = imageService.createImage(image);
+        cosmetic.setImage(cosmeticImage);
+        return repository.save(cosmetic);
     }
 }

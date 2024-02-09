@@ -38,7 +38,7 @@ const Cosmetics = () => {
             })
     }
 
-    return ( 
+    return (
         <div className="main">
             <div className="content-margin">
                 <h1>Medicinska kozmetika</h1>
@@ -52,7 +52,7 @@ const Cosmetics = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={brufen} alt="" />
+                                <img src={'data:image/jpeg;base64,' + cosmetic.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <p> <span>Naziv:</span> {cosmetic.name}</p>
@@ -66,7 +66,7 @@ const Cosmetics = () => {
                 </div>))}
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default Cosmetics;

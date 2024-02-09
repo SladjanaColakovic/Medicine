@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import brufen from "../images/brufen600.jpg"
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import Select from "../inputs/Select";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, remove } from "../http-client/httpClient";
+import { get, put, remove } from "../http-client/httpClient";
+import ChangeImage from "../inputs/ChangeImage";
 
 const CosmeticDetails = () => {
 
@@ -14,6 +14,7 @@ const CosmeticDetails = () => {
     const [data, setData] = useState(null);
     const forms = [{ id: 1, name: 'Krema' }, { id: 2, name: 'Mast' }, { id: 3, name: 'Pasta' }, { id: 4, name: 'Rastvor' }, { id: 5, name: 'Gel' }, { id: 6, name: 'Pjena' }, { id: 7, name: 'Ulje' }, { id: 8, name: 'Balzam' }, { id: 9, name: 'Serum' }, { id: 10, name: 'Ostalo' }];
     const [form, setForm] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const CosmeticDetails = () => {
         get("http://localhost:8080/api/cosmetics/" + id)
             .then((res) => {
                 setData(res.data);
-                setForm({id: forms.find((el) => el.name === res.data.form).id, name: res.data.form})
+                setForm({ id: forms.find((el) => el.name === res.data.form).id, name: res.data.form })
             })
             .catch((error) => {
                 console.log(error.message)
@@ -29,21 +30,50 @@ const CosmeticDetails = () => {
     }, [])
 
     const getForm = (id) => {
-        setForm({id: id, name: forms.find((el) => el.id == id).name})
+        setForm({ id: id, name: forms.find((el) => el.id == id).name })
         return forms.find((el) => el.id == id).name;
     }
 
     const edit = () => {
-        console.log(data);
+        put("http://localhost:8080/api/cosmetics", data)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
     }
+
     const removeData = () => {
         remove("http://localhost:8080/api/cosmetics/" + data.id)
-        .then(() => {
-            navigate("/cosmetics", {replace: true})
-        })
-        .catch((error) => {
-            console.log(error.message)
-        })
+            .then(() => {
+                navigate("/cosmetics", { replace: true })
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }
+
+    const changeImage = (e) => {
+        if (!e.target.files[0] || e.target.files[0].length == 0) {
+            return;
+        }
+
+        if (e.target.files[0].type.match(/image\/*/) == null) {
+            return;
+        }
+        setSelectedFile(e.target.files[0]);
+
+        const formData = new FormData();
+        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+        formData.append("image", e.target.files[0], e.target.files[0].name);
+        put("http://localhost:8080/api/cosmetics/image", formData)
+            .then((res) => {
+                setData(res.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
     }
 
     return (
@@ -57,7 +87,7 @@ const CosmeticDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <img src={brufen} alt="" />
+                                    <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)} />
                                     <Input name={"Naziv:"} type={"text"} value={data.name} changeValue={(e) => setData({ ...data, name: e.target.value })} />
                                     <Select items={forms} selectedItem={form.id} name={"Oblik:"} setItem={(e) => setData({ ...data, form: getForm(e.target.value) })} />
                                     <TextArea name={"Opis:"} rows={"3"} value={data.description} changeValue={(e) => setData({ ...data, description: e.target.value })} />

@@ -25,6 +25,6 @@ public class MedicalCosmetics {
     private String composition;
     private MedicineCosmeticsForm form;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Image image;
 }

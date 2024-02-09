@@ -78,7 +78,8 @@ const NewMedicine = () => {
         <div className="bottom-margin">
             <div className="row">
                 <div className="col-6">
-                <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)}/>
+                    <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)} />
+                    <br />
                     <Input name={"Zaštićeno ime:"} value={proprietaryName} type={"text"} changeValue={(e) => setProprietaryName(e.target.value)} />
                     <Input name={"Nezaštićeno ime:"} value={notProprietaryName} type={"text"} changeValue={(e) => setNotProprietaryName(e.target.value)} />
                     {classifications && <Select items={classifications} name={"Klasifikacija lijeka:"} selectedItem={classification.id} setItem={(e) => setClassification({ ...classification, id: e.target.value })} />}
