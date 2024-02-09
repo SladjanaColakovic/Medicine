@@ -3,11 +3,14 @@ package com.medicine.pharmacy.service.impl;
 import com.medicine.pharmacy.dto.EditDietarySupplementDto;
 import com.medicine.pharmacy.dto.NewDietarySupplementDto;
 import com.medicine.pharmacy.model.DietarySupplement;
+import com.medicine.pharmacy.model.Image;
 import com.medicine.pharmacy.repository.DietarySupplementRepository;
 import com.medicine.pharmacy.service.DietarySupplementService;
+import com.medicine.pharmacy.service.ImageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,10 +22,14 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
 
     @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private ImageService imageService;
 
     @Override
-    public DietarySupplement add(NewDietarySupplementDto newDietarySupplement) {
+    public DietarySupplement add(NewDietarySupplementDto newDietarySupplement, MultipartFile image) {
         DietarySupplement dietarySupplement = mapper.map(newDietarySupplement, DietarySupplement.class);
+        Image supplementImage = imageService.createImage(image);
+        dietarySupplement.setImage(supplementImage);
         return repository.save(dietarySupplement);
     }
 
@@ -50,5 +57,13 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
     @Override
     public List<DietarySupplement> search(String searchTerm) {
         return repository.search(searchTerm);
+    }
+
+    @Override
+    public DietarySupplement changeImage(Long id, MultipartFile image) {
+        DietarySupplement supplement = repository.findById(id).orElse(null);
+        Image supplementImage = imageService.createImage(image);
+        supplement.setImage(supplementImage);
+        return repository.save(supplement);
     }
 }

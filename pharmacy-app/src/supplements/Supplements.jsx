@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, getWithParams } from "../http-client/httpClient";
 import Search from "../inputs/Search";
-import brufen from "../images/brufen600.jpg"
 import Button from "../buttons/Button";
 
 const Supplements = () => {
@@ -52,7 +51,7 @@ const Supplements = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={brufen} alt="" />
+                            <img src={'data:image/jpeg;base64,' + supplement.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <p> <span>Naziv:</span> {supplement.name}</p>

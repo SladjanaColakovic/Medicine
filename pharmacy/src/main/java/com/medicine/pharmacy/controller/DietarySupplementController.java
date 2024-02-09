@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/api/supplement")
@@ -16,8 +17,9 @@ public class DietarySupplementController {
     private DietarySupplementService service;
 
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody NewDietarySupplementDto newDietarySupplement){
-        return new ResponseEntity<>(service.add(newDietarySupplement), HttpStatus.CREATED);
+    public ResponseEntity<?> add(@RequestPart("supplement") NewDietarySupplementDto newDietarySupplement,
+                                 @RequestPart("image") MultipartFile image){
+        return new ResponseEntity<>(service.add(newDietarySupplement, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -43,5 +45,11 @@ public class DietarySupplementController {
     @GetMapping(path = "/search")
     public ResponseEntity<?> search(@RequestParam("searchTerm") String searchTerm){
         return new ResponseEntity<>(service.search(searchTerm), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/image")
+    public ResponseEntity<?> changeImage(@RequestPart("id") Long id,
+                                         @RequestPart("image") MultipartFile image) {
+        return new ResponseEntity<>(service.changeImage(id, image), HttpStatus.OK);
     }
 }
