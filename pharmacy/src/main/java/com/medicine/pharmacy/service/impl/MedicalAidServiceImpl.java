@@ -59,4 +59,12 @@ public class MedicalAidServiceImpl implements MedicalAidService {
     public List<MedicalAid> search(String searchTerm) {
         return repository.search(searchTerm);
     }
+
+    @Override
+    public MedicalAid changeImage(Long id, MultipartFile image) {
+        MedicalAid aid = repository.findById(id).orElse(null);
+        Image aidImage = imageService.createImage(image);
+        aid.setImage(aidImage);
+        return repository.save(aid);
+    }
 }

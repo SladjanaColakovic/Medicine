@@ -14,4 +14,5 @@ public interface MedicalAidService {
     MedicalAid edit(EditMedicalAidDto editMedicalAid);
     void delete(Long id);
     List<MedicalAid> search(String searchTerm);
+    MedicalAid changeImage(Long id, MultipartFile image);
 }
