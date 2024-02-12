@@ -48,6 +48,9 @@ const Cosmetics = () => {
                         <Search handleSearch={(e) => search(e.target.value)} />
                     </div>
                 </div>
+                {data && data.length === 0 && <p className="noResult">
+                    Nema rezultata pretrage...
+                </p>}
                 {data && data.map((cosmetic) => (<div className="row" key={cosmetic.id}>
                     <div className="box">
                         <div className="row">

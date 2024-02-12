@@ -73,6 +73,9 @@ const Medicines = () => {
                         <Search handleSearch={(e) => serach(e.target.value)} />
                     </div>
                 </div>
+                {data && data.length === 0 && <p className="noResult">
+                    Nema rezultata pretrage...
+                </p>}
                 {data && data.map((medicine) => (<div className="row" key={medicine.id}>
                     <div className="box">
                         <div className="row">

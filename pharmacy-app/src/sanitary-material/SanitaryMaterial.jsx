@@ -50,6 +50,9 @@ const SanitaryMaterial = () => {
                         <Search handleSearch={(e) => search(e.target.value)} />
                     </div>
                 </div>
+                {data && data.length === 0 && <p className="noResult">
+                    Nema rezultata pretrage...
+                </p>}
                 {data && data.map((material) => (<div className="row" key={material.id}>
                     <div className="box">
                         <div className="row">
