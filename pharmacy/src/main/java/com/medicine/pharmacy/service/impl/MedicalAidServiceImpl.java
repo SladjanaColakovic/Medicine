@@ -47,6 +47,8 @@ public class MedicalAidServiceImpl implements MedicalAidService {
     @Override
     public MedicalAid edit(EditMedicalAidDto editMedicalAid) {
         MedicalAid edited = mapper.map(editMedicalAid, MedicalAid.class);
+        Image image = repository.findById(editMedicalAid.getId()).orElse(null).getImage();
+        edited.setImage(image);
         return repository.save(edited);
     }
 

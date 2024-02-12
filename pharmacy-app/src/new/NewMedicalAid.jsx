@@ -53,7 +53,7 @@ const NewMedicalAid = () => {
                     <TextArea rows={"3"} name={"Opis:"} value={description} changeValue={(e) => setDescription(e.target.value)} />
                 </div>
             </div>
-
+            <br />
             <div id="add-btn">
                 <div className="row">
                     <div className="col-5"></div>

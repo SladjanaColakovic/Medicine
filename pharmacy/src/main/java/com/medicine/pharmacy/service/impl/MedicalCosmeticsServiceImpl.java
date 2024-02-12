@@ -46,6 +46,8 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
     @Override
     public MedicalCosmetics edit(EditMedicalCosmeticsDto editMedicalCosmetics) {
         MedicalCosmetics edited = mapper.map(editMedicalCosmetics, MedicalCosmetics.class);
+        Image image = repository.findById(editMedicalCosmetics.getId()).orElse(null).getImage();
+        edited.setImage(image);
         return repository.save(edited);
     }
 

@@ -44,6 +44,8 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     @Override
     public MedicalDiagnosticsDevice edit(EditMedicalDiagnosticsDeviceDto editMedicalDiagnosticsDevice) {
         MedicalDiagnosticsDevice edited = mapper.map(editMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
+        Image image = repository.findById(editMedicalDiagnosticsDevice.getId()).orElse(null).getImage();
+        edited.setImage(image);
         return repository.save(edited);
     }
 

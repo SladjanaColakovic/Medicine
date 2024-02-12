@@ -45,6 +45,8 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
     @Override
     public SanitaryMaterial edit(EditSanitaryMaterialDto editSanitaryMaterial) {
         SanitaryMaterial edited = mapper.map(editSanitaryMaterial, SanitaryMaterial.class);
+        Image image = repository.findById(editSanitaryMaterial.getId()).orElse(null).getImage();
+        edited.setImage(image);
         return repository.save(edited);
     }
 
