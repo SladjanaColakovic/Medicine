@@ -51,13 +51,13 @@ const Devices = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img style={{width: "270px", height: "auto"}} src={'data:image/jpeg;base64,' + device.image.data} alt="Centar" />
+                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + device.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
+                                <Button name={"Detalji"} handleClick={() => showDetails(device.id)} />
                                 <p> <span>Naziv:</span> {device.name}</p>
                                 <p className="long-paragraph"><span>Opis:</span> {device.description}</p>
                                 <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {device.guide}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(device.id)} />
                             </div>
                         </div>
                     </div>

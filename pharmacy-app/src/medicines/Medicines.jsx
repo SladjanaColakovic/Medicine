@@ -80,11 +80,11 @@ const Medicines = () => {
                                 <img src={'data:image/jpeg;base64,' + medicine.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
+                                <Button name={"Detalji"} handleClick={() => showDetails(medicine.id)} />
                                 <p> <span>Zaštićeni naziv lijeka:</span> {medicine.proprietaryName}</p>
                                 <p><span>Nezaštićeni naziv lijeka:</span> {medicine.notProprietaryName}</p>
                                 <p className="long-paragraph"><span>Neželjena dejstva:</span> {medicine.sideEffects}</p>
                                 <p className="long-paragraph"><span>Metod primjene:</span> {medicine.applicationMethod}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(medicine.id)} />
                             </div>
                         </div>
                     </div>

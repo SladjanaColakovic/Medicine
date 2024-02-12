@@ -56,9 +56,9 @@ const Aids = () => {
                                 <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + aid.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
+                                <Button name={"Detalji"} handleClick={() => showDetails(aid.id)} />
                                 <p> <span>Naziv:</span> {aid.name}</p>
                                 <p className="long-paragraph"><span>Opis:</span> {aid.description}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(aid.id)} />
                             </div>
                         </div>
                     </div>

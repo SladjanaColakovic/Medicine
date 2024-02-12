@@ -55,11 +55,11 @@ const Cosmetics = () => {
                                 <img src={'data:image/jpeg;base64,' + cosmetic.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
+                                <Button name={"Detalji"} handleClick={() => showDetails(cosmetic.id)} />
                                 <p> <span>Naziv:</span> {cosmetic.name}</p>
                                 <p> <span>Oblik:</span> {cosmetic.form}</p>
                                 <p className="long-paragraph"><span>Opis:</span> {cosmetic.description}</p>
                                 <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {cosmetic.composition}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(cosmetic.id)} />
                             </div>
                         </div>
                     </div>

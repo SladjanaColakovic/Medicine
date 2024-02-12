@@ -57,9 +57,9 @@ const SanitaryMaterial = () => {
                                 <img src={'data:image/jpeg;base64,' + material.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
+                                <Button name={"Detalji"} handleClick={() => showDetails(material.id)} />
                                 <p> <span>Naziv:</span> {material.name}</p>
                                 <p className="long-paragraph"><span>Opis:</span> {material.description}</p>
-                                <Button name={"Detalji"} handleClick={() => showDetails(material.id)} />
                             </div>
                         </div>
                     </div>
