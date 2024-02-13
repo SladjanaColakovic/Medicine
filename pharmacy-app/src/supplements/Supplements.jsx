@@ -54,13 +54,15 @@ const Supplements = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={'data:image/jpeg;base64,' + supplement.image.data} alt="Centar" />
+                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + supplement.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(supplement.id)} />
                                 <p> <span>Naziv:</span> {supplement.name}</p>
                                 <p className="long-paragraph"><span>Indikacije:</span> {supplement.indications}</p>
                                 <p className="long-paragraph"><span>Metod primjene:</span> {supplement.applicationMethod}</p>
+                                <p className="long-paragraph"><span>Neželjena dejstva:</span> {supplement.sideEffects}</p>
+
                             </div>
                         </div>
                     </div>

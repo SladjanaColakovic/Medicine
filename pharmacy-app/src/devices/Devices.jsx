@@ -59,8 +59,8 @@ const Devices = () => {
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(device.id)} />
                                 <p> <span>Naziv:</span> {device.name}</p>
-                                <p className="long-paragraph"><span>Opis:</span> {device.description}</p>
-                                <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {device.guide}</p>
+                                <p className="long-paragraph-medium-box"><span>Opis:</span> {device.description}</p>
+                                <p className="long-paragraph-medium-box"><span>Uputstvo za upotrebu:</span> {device.guide}</p>
                             </div>
                         </div>
                     </div>

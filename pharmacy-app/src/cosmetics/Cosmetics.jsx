@@ -55,14 +55,16 @@ const Cosmetics = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={'data:image/jpeg;base64,' + cosmetic.image.data} alt="Centar" />
+                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + cosmetic.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(cosmetic.id)} />
                                 <p> <span>Naziv:</span> {cosmetic.name}</p>
                                 <p> <span>Oblik:</span> {cosmetic.form}</p>
                                 <p className="long-paragraph"><span>Opis:</span> {cosmetic.description}</p>
-                                <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {cosmetic.composition}</p>
+                                <p className="long-paragraph"><span>Uputstvo za upotrebu:</span> {cosmetic.applicationMethod}</p>
+                                <p className="long-paragraph"><span>Sastav:</span> {cosmetic.composition}</p>
+
                             </div>
                         </div>
                     </div>

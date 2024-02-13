@@ -61,7 +61,7 @@ const Aids = () => {
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(aid.id)} />
                                 <p> <span>Naziv:</span> {aid.name}</p>
-                                <p className="long-paragraph"><span>Opis:</span> {aid.description}</p>
+                                <p className="long-paragraph-short-box"><span>Opis:</span> {aid.description}</p>
                             </div>
                         </div>
                     </div>

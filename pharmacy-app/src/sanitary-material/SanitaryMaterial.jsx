@@ -57,12 +57,12 @@ const SanitaryMaterial = () => {
                     <div className="box">
                         <div className="row">
                             <div className="col-5">
-                                <img src={'data:image/jpeg;base64,' + material.image.data} alt="Centar" />
+                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + material.image.data} alt="Centar" />
                             </div>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(material.id)} />
                                 <p> <span>Naziv:</span> {material.name}</p>
-                                <p className="long-paragraph"><span>Opis:</span> {material.description}</p>
+                                <p className="long-paragraph-short-box"><span>Opis:</span> {material.description}</p>
                             </div>
                         </div>
                     </div>
