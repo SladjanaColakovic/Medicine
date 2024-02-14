@@ -46,8 +46,10 @@ public class MedicalAidServiceImpl implements MedicalAidService {
 
     @Override
     public MedicalAid edit(EditMedicalAidDto editMedicalAid) {
+        MedicalAid aid = repository.findById(editMedicalAid.getId()).orElse(null);
+        if(aid == null) return null;
+        Image image = aid.getImage();
         MedicalAid edited = mapper.map(editMedicalAid, MedicalAid.class);
-        Image image = repository.findById(editMedicalAid.getId()).orElse(null).getImage();
         edited.setImage(image);
         return repository.save(edited);
     }
@@ -65,6 +67,7 @@ public class MedicalAidServiceImpl implements MedicalAidService {
     @Override
     public MedicalAid changeImage(Long id, MultipartFile image) {
         MedicalAid aid = repository.findById(id).orElse(null);
+        if(aid == null) return null;
         Image aidImage = imageService.createImage(image);
         aid.setImage(aidImage);
         return repository.save(aid);
