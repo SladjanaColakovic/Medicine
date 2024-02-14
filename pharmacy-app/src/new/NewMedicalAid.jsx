@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { post } from "../http-client/httpClient";
 import ImageUpload from "../inputs/ImageUpload";
+import { errorMessage } from "../notifications/notification";
 
 const NewMedicalAid = () => {
 
@@ -20,15 +21,18 @@ const NewMedicalAid = () => {
             description: description,
         }
         const formData = new FormData();
-        formData.append("aid", new Blob([JSON.stringify(data)], { type: "application/json" }));
-        formData.append("image", selectedFile, selectedFile.name);
-        post("http://localhost:8080/api/medicalAid", formData)
-            .then((res) => {
-                navigate("/aids", { replace: true })
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (data !== null && selectedFile !== null) {
+            formData.append("aid", new Blob([JSON.stringify(data)], { type: "application/json" }));
+            formData.append("image", selectedFile, selectedFile.name);
+            post("http://localhost:8080/api/medicalAid", formData)
+                .then((res) => {
+                    navigate("/aids", { replace: true })
+                })
+                .catch((error) => {
+                    errorMessage("Neuspješno dodavanje novog medicinskog pomagala");
+                })
+
+        }
     }
 
     const addImage = (e) => {

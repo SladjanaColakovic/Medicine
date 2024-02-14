@@ -5,6 +5,7 @@ import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
 import { get, put, remove } from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
+import { errorMessage, successMessage } from "../notifications/notification";
 
 
 const SupplementDetails = () => {
@@ -19,8 +20,8 @@ const SupplementDetails = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje dijetetskog suplementa");
             })
     }, []);
 
@@ -29,9 +30,10 @@ const SupplementDetails = () => {
         put("http://localhost:8080/api/supplement", data)
             .then((res) => {
                 setData(res.data);
+                successMessage("Uspješna izmjena podataka o dijetetskom suplementu");
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna izmjena podataka o dijetetskom suplementu");
             })
     }
 
@@ -40,8 +42,8 @@ const SupplementDetails = () => {
             .then(() => {
                 navigate("/supplements", { replace: true })
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno brisanje dijetetskog suplementa");
             })
     }
 
@@ -56,15 +58,17 @@ const SupplementDetails = () => {
         setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
-        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
-        formData.append("image", e.target.files[0], e.target.files[0].name);
-        put("http://localhost:8080/api/supplement/image", formData)
-            .then((res) => {
-                setData(res.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (e.target.files[0]) {
+            formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+            formData.append("image", e.target.files[0], e.target.files[0].name);
+            put("http://localhost:8080/api/supplement/image", formData)
+                .then((res) => {
+                    setData(res.data);
+                })
+                .catch(() => {
+                    errorMessage("Neuspješna izmjena fotografije dijetetskog suplementa");
+                })
+        }
     }
 
     return (

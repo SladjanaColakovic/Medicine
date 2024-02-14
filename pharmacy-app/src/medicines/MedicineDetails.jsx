@@ -6,6 +6,8 @@ import Input from "../inputs/Input";
 import Select from "../inputs/Select";
 import TextArea from "../inputs/TextArea";
 import ChangeImage from "../inputs/ChangeImage";
+import { errorMessage, successMessage } from "../notifications/notification";
+
 
 const MedicineDetails = () => {
     const { id } = useParams();
@@ -23,12 +25,12 @@ const MedicineDetails = () => {
                     .then((res) => {
                         setClassifications(res.data);
                     })
-                    .catch((error) => {
-                        console.log(error.message);
+                    .catch(() => {
+                        errorMessage("Neuspješno učitavanje klasifikacija lijeka");
                     })
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje lijeka");
             })
     }, []);
 
@@ -36,9 +38,10 @@ const MedicineDetails = () => {
         put("http://localhost:8080/api/medicine", data)
             .then((res) => {
                 setData(res.data);
+                successMessage("Uspješna izmjena podataka o lijeku");
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna izmjena podataka o lijeku");
             })
     }
 
@@ -47,8 +50,8 @@ const MedicineDetails = () => {
             .then(() => {
                 navigate("/", { replace: true })
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno brisanje lijeka");
             })
     }
 
@@ -63,15 +66,17 @@ const MedicineDetails = () => {
         setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
-        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
-        formData.append("image", e.target.files[0], e.target.files[0].name);
-        put("http://localhost:8080/api/medicine/image", formData)
-            .then((res) => {
-                setData(res.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (e.target.files[0]) {
+            formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+            formData.append("image", e.target.files[0], e.target.files[0].name);
+            put("http://localhost:8080/api/medicine/image", formData)
+                .then((res) => {
+                    setData(res.data);
+                })
+                .catch(() => {
+                    errorMessage("Neuspješna izmjena fotografije lijeka");
+                })
+        }
     }
 
     return (
@@ -85,7 +90,7 @@ const MedicineDetails = () => {
                         {data &&
                             <div className="row">
                                 <div className="col-6">
-                                    <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)}/>
+                                    <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)} />
                                     <br />
                                     <Input name={"Zaštićeni naziv lijeka:"} type={"text"} value={data.proprietaryName} changeValue={(e) => setData({ ...data, proprietaryName: e.target.value })} />
                                     <Input name={"Nezaštićeni naziv lijeka:"} type={"text"} value={data.notProprietaryName} changeValue={(e) => setData({ ...data, notProprietaryName: e.target.value })} />

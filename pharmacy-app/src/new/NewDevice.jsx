@@ -5,6 +5,7 @@ import { useState } from "react";
 import { post } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
+import { errorMessage } from "../notifications/notification";
 
 const NewDevice = () => {
 
@@ -22,15 +23,18 @@ const NewDevice = () => {
             guide: guide
         }
         const formData = new FormData();
-        formData.append("device", new Blob([JSON.stringify(data)], { type: "application/json" }));
-        formData.append("image", selectedFile, selectedFile.name);
-        post("http://localhost:8080/api/devices", formData)
-            .then((res) => {
-                navigate("/devices", { replace: true })
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (data !== null && selectedFile !== null) {
+            formData.append("device", new Blob([JSON.stringify(data)], { type: "application/json" }));
+            formData.append("image", selectedFile, selectedFile.name);
+            post("http://localhost:8080/api/devices", formData)
+                .then((res) => {
+                    navigate("/devices", { replace: true })
+                })
+                .catch(() => {
+                    errorMessage("Neuspješno dodavanje novog uređaja za medicinsku dijagnostiku");
+                })
+
+        }
     }
 
     const addImage = (e) => {
@@ -49,7 +53,7 @@ const NewDevice = () => {
         <div className="bottom-margin">
             <div className="row">
                 <div className="col-6">
-                <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)}/>
+                    <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)} />
                 </div>
                 <div className="col-6">
                     <Input name={"Naziv:"} value={name} type={"text"} changeValue={(e) => setName(e.target.value)} />

@@ -14,6 +14,7 @@ import CosmeticDetails from './cosmetics/CosmeticDetails';
 import SupplementDetails from './supplements/SupplementDetails';
 import AidDetails from './aids/AidDetails';
 import SanitaryMaterialDetails from './sanitary-material/SanitaryMaterialDetails';
+import { NotificationContainer } from 'react-notifications';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function Layout() {
     <div>
       <NavBar />
       <Outlet />
+      <NotificationContainer/>
     </div>
   );
 }

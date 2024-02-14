@@ -5,6 +5,8 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import ChangeImage from "../inputs/ChangeImage";
+import { errorMessage, successMessage } from "../notifications/notification";
+
 
 const DeviceDetails = () => {
 
@@ -18,8 +20,8 @@ const DeviceDetails = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje uređaja");
             })
     }, []);
 
@@ -27,9 +29,10 @@ const DeviceDetails = () => {
         put("http://localhost:8080/api/devices", data)
             .then((res) => {
                 setData(res.data);
+                successMessage("Uspješna izmjena podataka o uređaju");
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna izmjena podataka o uređaju");
             })
     }
 
@@ -39,7 +42,7 @@ const DeviceDetails = () => {
                 navigate("/devices", { replace: true })
             })
             .catch((error) => {
-                console.log(error.message)
+                errorMessage("Neuspješno brisanje uređaja");
             })
     }
 
@@ -54,15 +57,17 @@ const DeviceDetails = () => {
         setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
-        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
-        formData.append("image", e.target.files[0], e.target.files[0].name);
-        put("http://localhost:8080/api/devices/image", formData)
-            .then((res) => {
-                setData(res.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (e.target.files[0]) {
+            formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+            formData.append("image", e.target.files[0], e.target.files[0].name);
+            put("http://localhost:8080/api/devices/image", formData)
+                .then((res) => {
+                    setData(res.data);
+                })
+                .catch((error) => {
+                    errorMessage("Neuspješna izmjena forografije uređaja");
+                })
+        }
     }
 
     return (

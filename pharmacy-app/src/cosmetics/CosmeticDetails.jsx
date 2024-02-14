@@ -6,6 +6,7 @@ import Select from "../inputs/Select";
 import { useNavigate, useParams } from "react-router-dom";
 import { get, put, remove } from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
+import { errorMessage, successMessage } from "../notifications/notification";
 
 const CosmeticDetails = () => {
 
@@ -24,8 +25,8 @@ const CosmeticDetails = () => {
                 setData(res.data);
                 setForm({ id: forms.find((el) => el.name === res.data.form).id, name: res.data.form })
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje kozmetičkog preparata");
             })
     }, [])
 
@@ -38,9 +39,10 @@ const CosmeticDetails = () => {
         put("http://localhost:8080/api/cosmetics", data)
             .then((res) => {
                 setData(res.data);
+                successMessage("Uspješna izmjena podataka o kozmetičkom preparatu");
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna izmjena podataka o kozmetičkom preparatu");
             })
     }
 
@@ -49,8 +51,8 @@ const CosmeticDetails = () => {
             .then(() => {
                 navigate("/cosmetics", { replace: true })
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno brisanje kozmetičkog preparata");
             })
     }
 
@@ -65,15 +67,17 @@ const CosmeticDetails = () => {
         setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
-        formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
-        formData.append("image", e.target.files[0], e.target.files[0].name);
-        put("http://localhost:8080/api/cosmetics/image", formData)
-            .then((res) => {
-                setData(res.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (e.target.files[0]) {
+            formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
+            formData.append("image", e.target.files[0], e.target.files[0].name);
+            put("http://localhost:8080/api/cosmetics/image", formData)
+                .then((res) => {
+                    setData(res.data);
+                })
+                .catch(() => {
+                    errorMessage("Neuspješna izmjena fotografije kozmetičkog preparata")
+                })
+        }
     }
 
     return (

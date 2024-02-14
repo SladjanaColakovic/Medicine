@@ -6,6 +6,7 @@ import { get, post } from '../http-client/httpClient'
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
+import { errorMessage } from "../notifications/notification";
 
 
 const NewMedicine = () => {
@@ -31,7 +32,7 @@ const NewMedicine = () => {
                 setClassifications(res.data);
             })
             .catch((error) => {
-                console.log(error.message)
+                errorMessage("Neuspješno dodavanje novog lijeka");
             })
 
     }, []);
@@ -52,15 +53,18 @@ const NewMedicine = () => {
             }
         }
         const formData = new FormData();
-        formData.append("medicine", new Blob([JSON.stringify(data)], { type: "application/json" }));
-        formData.append("image", selectedFile, selectedFile.name);
-        post("http://localhost:8080/api/medicine", formData)
-            .then((res) => {
-                navigate("/", { replace: true })
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
+        if (data !== null && selectedFile !== null) {
+            formData.append("medicine", new Blob([JSON.stringify(data)], { type: "application/json" }));
+            formData.append("image", selectedFile, selectedFile.name);
+            post("http://localhost:8080/api/medicine", formData)
+                .then((res) => {
+                    navigate("/", { replace: true })
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                })
+
+        }
     }
 
     const addImage = (e) => {
