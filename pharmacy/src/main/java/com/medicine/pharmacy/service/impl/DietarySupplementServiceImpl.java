@@ -45,7 +45,9 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
 
     @Override
     public DietarySupplement edit(EditDietarySupplementDto editDietarySupplement) {
-        Image image = repository.findById(editDietarySupplement.getId()).orElse(null).getImage();
+        DietarySupplement supplement = repository.findById(editDietarySupplement.getId()).orElse(null);
+        if(supplement == null) return null;
+        Image image = supplement.getImage();
         DietarySupplement edited = mapper.map(editDietarySupplement, DietarySupplement.class);
         edited.setImage(image);
         return repository.save(edited);
@@ -64,6 +66,7 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
     @Override
     public DietarySupplement changeImage(Long id, MultipartFile image) {
         DietarySupplement supplement = repository.findById(id).orElse(null);
+        if(supplement == null) return null;
         Image supplementImage = imageService.createImage(image);
         supplement.setImage(supplementImage);
         return repository.save(supplement);
