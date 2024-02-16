@@ -45,7 +45,9 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
     @Override
     public SanitaryMaterial edit(EditSanitaryMaterialDto editSanitaryMaterial) {
         SanitaryMaterial edited = mapper.map(editSanitaryMaterial, SanitaryMaterial.class);
-        Image image = repository.findById(editSanitaryMaterial.getId()).orElse(null).getImage();
+        SanitaryMaterial material = repository.findById(editSanitaryMaterial.getId()).orElse(null);
+        if(material == null) return null;
+        Image image = material.getImage();
         edited.setImage(image);
         return repository.save(edited);
     }
@@ -63,6 +65,7 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
     @Override
     public SanitaryMaterial changeImage(Long id, MultipartFile image) {
         SanitaryMaterial material = repository.findById(id).orElse(null);
+        if(material == null) return null;
         Image materialImage = imageService.createImage(image);
         material.setImage(materialImage);
         return repository.save(material);

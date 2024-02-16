@@ -3,6 +3,7 @@ package com.medicine.pharmacy.controller;
 import com.medicine.pharmacy.dto.EditSanitaryMaterialDto;
 import com.medicine.pharmacy.dto.NewMedicineDto;
 import com.medicine.pharmacy.dto.NewSanitaryMaterialDto;
+import com.medicine.pharmacy.model.SanitaryMaterial;
 import com.medicine.pharmacy.service.SanitaryMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,12 +31,16 @@ public class SanitaryMaterialController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
-        return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
+        SanitaryMaterial result = service.getById(id);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> edit(@RequestBody EditSanitaryMaterialDto editSanitaryMaterial){
-        return new ResponseEntity<>(service.edit(editSanitaryMaterial), HttpStatus.OK);
+        SanitaryMaterial result = service.edit(editSanitaryMaterial);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -52,6 +57,8 @@ public class SanitaryMaterialController {
     @PutMapping(value = "/image")
     public ResponseEntity<?> changeImage(@RequestPart("id") Long id,
                                          @RequestPart("image") MultipartFile image) {
-        return new ResponseEntity<>(service.changeImage(id, image), HttpStatus.OK);
+        SanitaryMaterial result = service.changeImage(id, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

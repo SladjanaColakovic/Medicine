@@ -49,7 +49,9 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public Medicine edit(EditMedicineDto editMedicine) {
         Medicine edited = mapper.map(editMedicine, Medicine.class);
-        Image image = repository.findById(editMedicine.getId()).orElse(null).getImage();
+        Medicine medicine = repository.findById(editMedicine.getId()).orElse(null);
+        if(medicine == null) return null;
+        Image image = medicine.getImage();
         edited.setImage(image);
         return repository.save(edited);
     }
@@ -72,6 +74,7 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public Medicine changeImage(Long id, MultipartFile image) {
         Medicine medicine = repository.findById(id).orElse(null);
+        if(medicine == null) return null;
         Image medicineImage = imageService.createImage(image);
         medicine.setImage(medicineImage);
         return repository.save(medicine);

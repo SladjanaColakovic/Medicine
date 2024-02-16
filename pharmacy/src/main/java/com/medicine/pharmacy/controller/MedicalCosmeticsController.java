@@ -2,6 +2,7 @@ package com.medicine.pharmacy.controller;
 
 import com.medicine.pharmacy.dto.EditMedicalCosmeticsDto;
 import com.medicine.pharmacy.dto.NewMedicalCosmeticsDto;
+import com.medicine.pharmacy.model.MedicalCosmetics;
 import com.medicine.pharmacy.service.MedicalCosmeticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,9 @@ public class MedicalCosmeticsController {
     @PostMapping
     public ResponseEntity<?> add(@RequestPart("cosmetic") NewMedicalCosmeticsDto newMedicalCosmetics,
                                  @RequestPart("image") MultipartFile image){
-        return new ResponseEntity<>(service.add(newMedicalCosmetics, image), HttpStatus.CREATED);
+        MedicalCosmetics result = service.add(newMedicalCosmetics, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -29,12 +32,16 @@ public class MedicalCosmeticsController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
-        return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
+        MedicalCosmetics result = service.getById(id);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> edit(@RequestBody EditMedicalCosmeticsDto editMedicalCosmetics){
-        return new ResponseEntity<>(service.edit(editMedicalCosmetics), HttpStatus.OK);
+        MedicalCosmetics result = service.edit(editMedicalCosmetics);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -51,6 +58,8 @@ public class MedicalCosmeticsController {
     @PutMapping(value = "/image")
     public ResponseEntity<?> changeImage(@RequestPart("id") Long id,
                                          @RequestPart("image") MultipartFile image) {
-        return new ResponseEntity<>(service.changeImage(id, image), HttpStatus.OK);
+        MedicalCosmetics result = service.changeImage(id, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

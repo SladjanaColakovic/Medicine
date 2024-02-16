@@ -19,8 +19,7 @@ public class MedicineController {
     @PostMapping
     public ResponseEntity<?> add(@RequestPart("medicine") NewMedicineDto newMedicine,
                                  @RequestPart("image")MultipartFile image){
-        Medicine medicine =  service.add(newMedicine, image);
-        return new ResponseEntity<>(medicine, HttpStatus.CREATED);
+        return new ResponseEntity<>(service.add(newMedicine, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -30,12 +29,16 @@ public class MedicineController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
-        return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
+        Medicine result = service.getById(id);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<?> edit(@RequestBody EditMedicineDto editMedicine){
-        return new ResponseEntity<>(service.edit(editMedicine), HttpStatus.OK);
+        Medicine result = service.edit(editMedicine);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -58,6 +61,8 @@ public class MedicineController {
     @PutMapping(value = "/image")
     public ResponseEntity<?> changeImage(@RequestPart("id") Long id,
                                          @RequestPart("image") MultipartFile image) {
-        return new ResponseEntity<>(service.changeImage(id, image), HttpStatus.OK);
+        Medicine result = service.changeImage(id, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

@@ -5,6 +5,7 @@ import com.medicine.pharmacy.dto.NewMedicalDiagnosticsDeviceDto;
 import com.medicine.pharmacy.model.Image;
 import com.medicine.pharmacy.model.MedicalDiagnosticsDevice;
 import com.medicine.pharmacy.repository.MedicalDiagnosticsDeviceRepository;
+import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicalDiagnosticsDeviceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,13 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     @Autowired
     private ModelMapper mapper;
 
+    @Autowired
+    private ImageService imageService;
+
     @Override
     public MedicalDiagnosticsDevice add(NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice, MultipartFile image) {
         MedicalDiagnosticsDevice medicalDiagnosticsDevice = mapper.map(newMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
-        Image deviceImage = createImage(image);
+        Image deviceImage = imageService.createImage(image);
         medicalDiagnosticsDevice.setImage(deviceImage);
         return repository.save(medicalDiagnosticsDevice);
     }
@@ -44,7 +48,9 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     @Override
     public MedicalDiagnosticsDevice edit(EditMedicalDiagnosticsDeviceDto editMedicalDiagnosticsDevice) {
         MedicalDiagnosticsDevice edited = mapper.map(editMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
-        Image image = repository.findById(editMedicalDiagnosticsDevice.getId()).orElse(null).getImage();
+        MedicalDiagnosticsDevice device = repository.findById(editMedicalDiagnosticsDevice.getId()).orElse(null);
+        if(device == null) return null;
+        Image image = device.getImage();
         edited.setImage(image);
         return repository.save(edited);
     }
@@ -62,18 +68,10 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
     @Override
     public MedicalDiagnosticsDevice changeImage(Long id, MultipartFile image) {
         MedicalDiagnosticsDevice device = repository.findById(id).orElse(null);
-        Image deviceImage = createImage(image);
+        if(device == null) return  null;
+        Image deviceImage = imageService.createImage(image);
         device.setImage(deviceImage);
         return repository.save(device);
     }
 
-    private Image createImage(MultipartFile image){
-        Image createdImage = null;
-        try {
-            createdImage = new Image(image.getOriginalFilename(), image.getContentType(), image.getBytes());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return createdImage;
-    }
 }
