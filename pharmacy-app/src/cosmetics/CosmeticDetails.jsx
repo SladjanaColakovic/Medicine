@@ -15,7 +15,6 @@ const CosmeticDetails = () => {
     const [data, setData] = useState(null);
     const forms = [{ id: 1, name: 'Krema' }, { id: 2, name: 'Mast' }, { id: 3, name: 'Pasta' }, { id: 4, name: 'Rastvor' }, { id: 5, name: 'Gel' }, { id: 6, name: 'Pjena' }, { id: 7, name: 'Ulje' }, { id: 8, name: 'Balzam' }, { id: 9, name: 'Serum' }, { id: 10, name: 'Ostalo' }];
     const [form, setForm] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null);
 
     const navigate = useNavigate();
 
@@ -28,7 +27,7 @@ const CosmeticDetails = () => {
             .catch(() => {
                 errorMessage("Neuspješno učitavanje kozmetičkog preparata");
             })
-    }, [])
+    }, [id])
 
     const getForm = (id) => {
         setForm({ id: id, name: forms.find((el) => el.id == id).name })
@@ -57,14 +56,13 @@ const CosmeticDetails = () => {
     }
 
     const changeImage = (e) => {
-        if (!e.target.files[0] || e.target.files[0].length == 0) {
+        if (!e.target.files[0] || e.target.files[0].length === 0) {
             return;
         }
 
-        if (e.target.files[0].type.match(/image\/*/) == null) {
+        if (e.target.files[0].type.match(/image\/*/) === null) {
             return;
         }
-        setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
         if (e.target.files[0]) {

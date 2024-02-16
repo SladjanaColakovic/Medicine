@@ -13,7 +13,6 @@ const DeviceDetails = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const navigate = useNavigate();
-    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         get("http://localhost:8080/api/devices/" + id)
@@ -23,7 +22,7 @@ const DeviceDetails = () => {
             .catch(() => {
                 errorMessage("Neuspješno učitavanje uređaja");
             })
-    }, []);
+    }, [id]);
 
     const edit = () => {
         put("http://localhost:8080/api/devices", data)
@@ -41,20 +40,19 @@ const DeviceDetails = () => {
             .then(() => {
                 navigate("/devices", { replace: true })
             })
-            .catch((error) => {
+            .catch(() => {
                 errorMessage("Neuspješno brisanje uređaja");
             })
     }
 
     const changeImage = (e) => {
-        if (!e.target.files[0] || e.target.files[0].length == 0) {
+        if (!e.target.files[0] || e.target.files[0].length === 0) {
             return;
         }
 
-        if (e.target.files[0].type.match(/image\/*/) == null) {
+        if (e.target.files[0].type.match(/image\/*/) === null) {
             return;
         }
-        setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
         if (e.target.files[0]) {

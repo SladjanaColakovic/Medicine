@@ -13,7 +13,6 @@ const MedicineDetails = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null);
 
     const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ const MedicineDetails = () => {
             .catch(() => {
                 errorMessage("Neuspješno učitavanje lijeka");
             })
-    }, []);
+    }, [id]);
 
     const edit = () => {
         put("http://localhost:8080/api/medicine", data)
@@ -56,14 +55,13 @@ const MedicineDetails = () => {
     }
 
     const changeImage = (e) => {
-        if (!e.target.files[0] || e.target.files[0].length == 0) {
+        if (!e.target.files[0] || e.target.files[0].length === 0) {
             return;
         }
 
-        if (e.target.files[0].type.match(/image\/*/) == null) {
+        if (e.target.files[0].type.match(/image\/*/) === null) {
             return;
         }
-        setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
         if (e.target.files[0]) {

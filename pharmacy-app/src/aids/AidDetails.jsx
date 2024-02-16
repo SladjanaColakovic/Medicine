@@ -12,7 +12,6 @@ const AidDetails = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const navigate = useNavigate();
-    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         get("http://localhost:8080/api/medicalAid/" + id)
@@ -22,7 +21,7 @@ const AidDetails = () => {
             .catch(() => {
                 errorMessage("Neuspješno učitavanje medicinskog pomagala");
             })
-    }, []);
+    }, [id]);
 
     const edit = () => {
         put("http://localhost:8080/api/medicalAid", data)
@@ -46,14 +45,13 @@ const AidDetails = () => {
     }
 
     const changeImage = (e) => {
-        if (!e.target.files[0] || e.target.files[0].length == 0) {
+        if (!e.target.files[0] || e.target.files[0].length === 0) {
             return;
         }
 
-        if (e.target.files[0].type.match(/image\/*/) == null) {
+        if (e.target.files[0].type.match(/image\/*/) === null) {
             return;
         }
-        setSelectedFile(e.target.files[0]);
 
         const formData = new FormData();
         if (e.target.files[0]) {
