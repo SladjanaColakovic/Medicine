@@ -7,6 +7,7 @@ import com.medicine.pharmacy.model.Image;
 import com.medicine.pharmacy.repository.DietarySupplementRepository;
 import com.medicine.pharmacy.service.DietarySupplementService;
 import com.medicine.pharmacy.service.ImageService;
+import com.medicine.pharmacy.validation.DietarySupplementValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,10 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
 
     @Override
     public DietarySupplement add(NewDietarySupplementDto newDietarySupplement, MultipartFile image) {
+        if(!DietarySupplementValidation.isAddOperationValid(newDietarySupplement)) return null;
         DietarySupplement dietarySupplement = mapper.map(newDietarySupplement, DietarySupplement.class);
         Image supplementImage = imageService.createImage(image);
+        if(image == null) return null;
         dietarySupplement.setImage(supplementImage);
         return repository.save(dietarySupplement);
     }
@@ -45,6 +48,7 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
 
     @Override
     public DietarySupplement edit(EditDietarySupplementDto editDietarySupplement) {
+        if(!DietarySupplementValidation.isEditOperationValid(editDietarySupplement)) return null;
         DietarySupplement supplement = repository.findById(editDietarySupplement.getId()).orElse(null);
         if(supplement == null) return null;
         Image image = supplement.getImage();
@@ -68,6 +72,7 @@ public class DietarySupplementServiceImpl implements DietarySupplementService {
         DietarySupplement supplement = repository.findById(id).orElse(null);
         if(supplement == null) return null;
         Image supplementImage = imageService.createImage(image);
+        if(image == null) return null;
         supplement.setImage(supplementImage);
         return repository.save(supplement);
     }

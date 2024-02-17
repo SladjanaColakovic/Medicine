@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { get, getWithParams } from "../http-client/httpClient";
 import Search from "../inputs/Search";
 import Button from "../buttons/Button";
+import {errorMessage} from '../notifications/notification';
 
 const Supplements = () => {
 
@@ -14,8 +15,8 @@ const Supplements = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje podataka");
             })
 
     }, []);
@@ -32,8 +33,8 @@ const Supplements = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna pretraga");
             })
     }
 
@@ -62,7 +63,6 @@ const Supplements = () => {
                                 <p className="long-paragraph"><span>Indikacije:</span> {supplement.indications}</p>
                                 <p className="long-paragraph"><span>Metod primjene:</span> {supplement.applicationMethod}</p>
                                 <p className="long-paragraph"><span>Neželjena dejstva:</span> {supplement.sideEffects}</p>
-
                             </div>
                         </div>
                     </div>

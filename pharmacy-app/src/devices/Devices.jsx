@@ -3,6 +3,7 @@ import Button from "../buttons/Button";
 import { useEffect, useState } from "react";
 import { get, getWithParams } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
+import {errorMessage} from '../notifications/notification';
 
 const Devices = () => {
 
@@ -14,8 +15,8 @@ const Devices = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje podataka");
             })
 
     }, []);
@@ -32,8 +33,8 @@ const Devices = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna pretraga");
             })
     }
 

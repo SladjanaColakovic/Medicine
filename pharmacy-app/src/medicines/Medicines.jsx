@@ -3,7 +3,7 @@ import { get, getWithParams } from "../http-client/httpClient";
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import Search from "../inputs/Search";
-
+import {errorMessage} from '../notifications/notification';
 
 const Medicines = () => {
 
@@ -34,8 +34,8 @@ const Medicines = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje podataka");
             })
     }
 
@@ -52,8 +52,8 @@ const Medicines = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna pretraga");
             })
     }
 

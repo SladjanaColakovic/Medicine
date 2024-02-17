@@ -20,7 +20,9 @@ public class DietarySupplementController {
     @PostMapping
     public ResponseEntity<?> add(@RequestPart("supplement") NewDietarySupplementDto newDietarySupplement,
                                  @RequestPart("image") MultipartFile image){
-        return new ResponseEntity<>(service.add(newDietarySupplement, image), HttpStatus.CREATED);
+        DietarySupplement result = service.add(newDietarySupplement, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping

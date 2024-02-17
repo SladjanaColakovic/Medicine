@@ -1,9 +1,9 @@
-import brufen from "../images/brufen600.jpg"
 import Search from "../inputs/Search";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, getWithParams } from "../http-client/httpClient";
 import Button from "../buttons/Button";
+import {errorMessage} from '../notifications/notification';
 
 const Cosmetics = () => {
 
@@ -15,8 +15,8 @@ const Cosmetics = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje podataka");
             })
 
     }, []);
@@ -33,8 +33,8 @@ const Cosmetics = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna pretraga");
             })
     }
 

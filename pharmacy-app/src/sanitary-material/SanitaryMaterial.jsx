@@ -1,9 +1,9 @@
 import Button from "../buttons/Button";
 import Search from "../inputs/Search";
-import brufen from "../images/brufen600.jpg"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, getWithParams } from "../http-client/httpClient";
+import {errorMessage} from '../notifications/notification';
 
 
 const SanitaryMaterial = () => {
@@ -16,8 +16,8 @@ const SanitaryMaterial = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                errorMessage("Neuspješno učitavanje podataka");
             })
 
     }, []);
@@ -34,8 +34,8 @@ const SanitaryMaterial = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error.message);
+            .catch(() => {
+                errorMessage("Neuspješna pretraga");
             })
     }
 
