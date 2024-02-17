@@ -7,6 +7,7 @@ import com.medicine.pharmacy.model.MedicalAid;
 import com.medicine.pharmacy.repository.MedicalAidRepository;
 import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicalAidService;
+import com.medicine.pharmacy.validation.MedicalAidValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,10 @@ public class MedicalAidServiceImpl implements MedicalAidService {
 
     @Override
     public MedicalAid add(NewMedicalAidDto newMedicalAid, MultipartFile image) {
+        if(!MedicalAidValidation.isAddOperationValid(newMedicalAid)) return null;
         MedicalAid medicalAid = mapper.map(newMedicalAid, MedicalAid.class);
         Image aidImage = imageService.createImage(image);
+        if(image == null) return null;
         medicalAid.setImage(aidImage);
         return repository.save(medicalAid);
     }
@@ -46,6 +49,7 @@ public class MedicalAidServiceImpl implements MedicalAidService {
 
     @Override
     public MedicalAid edit(EditMedicalAidDto editMedicalAid) {
+        if(!MedicalAidValidation.isEditOperationValid(editMedicalAid)) return null;
         MedicalAid aid = repository.findById(editMedicalAid.getId()).orElse(null);
         if(aid == null) return null;
         Image image = aid.getImage();
@@ -69,6 +73,7 @@ public class MedicalAidServiceImpl implements MedicalAidService {
         MedicalAid aid = repository.findById(id).orElse(null);
         if(aid == null) return null;
         Image aidImage = imageService.createImage(image);
+        if(image == null) return null;
         aid.setImage(aidImage);
         return repository.save(aid);
     }
