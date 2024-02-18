@@ -21,7 +21,9 @@ public class SanitaryMaterialController {
     @PostMapping
     public ResponseEntity<?> add(@RequestPart("material") NewSanitaryMaterialDto newSanitaryMaterial,
                                  @RequestPart("image") MultipartFile image){
-        return new ResponseEntity<>(service.add(newSanitaryMaterial, image), HttpStatus.CREATED);
+        SanitaryMaterial result = service.add(newSanitaryMaterial, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping

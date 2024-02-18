@@ -7,6 +7,7 @@ import com.medicine.pharmacy.model.MedicalDiagnosticsDevice;
 import com.medicine.pharmacy.repository.MedicalDiagnosticsDeviceRepository;
 import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicalDiagnosticsDeviceService;
+import com.medicine.pharmacy.validation.MedicalDiagnosticsDeviceValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,10 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
 
     @Override
     public MedicalDiagnosticsDevice add(NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice, MultipartFile image) {
+        if(!MedicalDiagnosticsDeviceValidation.isAddOperationValid(newMedicalDiagnosticsDevice)) return null;
         MedicalDiagnosticsDevice medicalDiagnosticsDevice = mapper.map(newMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
         Image deviceImage = imageService.createImage(image);
+        if(deviceImage == null) return null;
         medicalDiagnosticsDevice.setImage(deviceImage);
         return repository.save(medicalDiagnosticsDevice);
     }
@@ -47,6 +50,7 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
 
     @Override
     public MedicalDiagnosticsDevice edit(EditMedicalDiagnosticsDeviceDto editMedicalDiagnosticsDevice) {
+        if(!MedicalDiagnosticsDeviceValidation.isEditOperationValid(editMedicalDiagnosticsDevice)) return null;
         MedicalDiagnosticsDevice edited = mapper.map(editMedicalDiagnosticsDevice, MedicalDiagnosticsDevice.class);
         MedicalDiagnosticsDevice device = repository.findById(editMedicalDiagnosticsDevice.getId()).orElse(null);
         if(device == null) return null;
@@ -70,6 +74,7 @@ public class MedicalDiagnosticDeviceServiceImpl implements MedicalDiagnosticsDev
         MedicalDiagnosticsDevice device = repository.findById(id).orElse(null);
         if(device == null) return  null;
         Image deviceImage = imageService.createImage(image);
+        if(deviceImage == null) return null;
         device.setImage(deviceImage);
         return repository.save(device);
     }

@@ -10,6 +10,7 @@ import com.medicine.pharmacy.repository.MedicineClassificationRepository;
 import com.medicine.pharmacy.repository.MedicineRepository;
 import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicineService;
+import com.medicine.pharmacy.validation.MedicineValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,10 @@ public class MedicineServiceImpl implements MedicineService {
     private ModelMapper mapper;
     @Override
     public Medicine add(NewMedicineDto newMedicine, MultipartFile image) {
+        if(!MedicineValidation.isAddOperationValid(newMedicine)) return null;
         Medicine medicine = mapper.map(newMedicine, Medicine.class);
         Image medicineImage = imageService.createImage(image);
+        if(medicineImage == null) return null;
         medicine.setImage(medicineImage);
         return repository.save(medicine);
     }
@@ -48,6 +51,7 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public Medicine edit(EditMedicineDto editMedicine) {
+        if(!MedicineValidation.isEditOperationValid(editMedicine)) return null;
         Medicine edited = mapper.map(editMedicine, Medicine.class);
         Medicine medicine = repository.findById(editMedicine.getId()).orElse(null);
         if(medicine == null) return null;
@@ -76,6 +80,7 @@ public class MedicineServiceImpl implements MedicineService {
         Medicine medicine = repository.findById(id).orElse(null);
         if(medicine == null) return null;
         Image medicineImage = imageService.createImage(image);
+        if(medicineImage == null) return null;
         medicine.setImage(medicineImage);
         return repository.save(medicine);
     }

@@ -20,7 +20,9 @@ public class MedicalDiagnosticsDeviceController {
     @PostMapping
     public ResponseEntity<?> add(@RequestPart("device") NewMedicalDiagnosticsDeviceDto newMedicalDiagnosticsDevice,
                                  @RequestPart("image") MultipartFile image){
-        return new ResponseEntity<>(service.add(newMedicalDiagnosticsDevice, image), HttpStatus.CREATED);
+        MedicalDiagnosticsDevice result = service.add(newMedicalDiagnosticsDevice, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping

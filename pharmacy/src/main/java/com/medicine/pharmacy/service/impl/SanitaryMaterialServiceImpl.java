@@ -7,6 +7,7 @@ import com.medicine.pharmacy.model.SanitaryMaterial;
 import com.medicine.pharmacy.repository.SanitaryMaterialRepository;
 import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.SanitaryMaterialService;
+import com.medicine.pharmacy.validation.SanitaryMaterialValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,10 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
 
     @Override
     public SanitaryMaterial add(NewSanitaryMaterialDto newSanitaryMaterial, MultipartFile image) {
+        if(!SanitaryMaterialValidation.isAddOperationValid(newSanitaryMaterial)) return null;
         SanitaryMaterial sanitaryMaterial = mapper.map(newSanitaryMaterial, SanitaryMaterial.class);
         Image materialImage = imageService.createImage(image);
+        if(materialImage == null) return null;
         sanitaryMaterial.setImage(materialImage);
         return repository.save(sanitaryMaterial);
     }
@@ -44,6 +47,7 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
 
     @Override
     public SanitaryMaterial edit(EditSanitaryMaterialDto editSanitaryMaterial) {
+        if(!SanitaryMaterialValidation.isEditOperationValid(editSanitaryMaterial)) return null;
         SanitaryMaterial edited = mapper.map(editSanitaryMaterial, SanitaryMaterial.class);
         SanitaryMaterial material = repository.findById(editSanitaryMaterial.getId()).orElse(null);
         if(material == null) return null;
@@ -67,6 +71,7 @@ public class SanitaryMaterialServiceImpl implements SanitaryMaterialService {
         SanitaryMaterial material = repository.findById(id).orElse(null);
         if(material == null) return null;
         Image materialImage = imageService.createImage(image);
+        if(materialImage == null) return null;
         material.setImage(materialImage);
         return repository.save(material);
     }

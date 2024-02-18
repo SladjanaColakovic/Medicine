@@ -19,7 +19,9 @@ public class MedicineController {
     @PostMapping
     public ResponseEntity<?> add(@RequestPart("medicine") NewMedicineDto newMedicine,
                                  @RequestPart("image")MultipartFile image){
-        return new ResponseEntity<>(service.add(newMedicine, image), HttpStatus.CREATED);
+        Medicine result = service.add(newMedicine, image);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping
