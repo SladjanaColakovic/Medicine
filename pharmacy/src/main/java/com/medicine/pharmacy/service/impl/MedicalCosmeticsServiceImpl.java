@@ -7,6 +7,7 @@ import com.medicine.pharmacy.model.MedicalCosmetics;
 import com.medicine.pharmacy.repository.MedicalCosmeticsRepository;
 import com.medicine.pharmacy.service.ImageService;
 import com.medicine.pharmacy.service.MedicalCosmeticsService;
+import com.medicine.pharmacy.validation.MedicalCosmeticsValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,10 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
     private ImageService imageService;
     @Override
     public MedicalCosmetics add(NewMedicalCosmeticsDto newMedicalCosmetics, MultipartFile image) {
+        if(!MedicalCosmeticsValidation.isAddOperationValid(newMedicalCosmetics)) return null;
         MedicalCosmetics medicalCosmetics = mapper.map(newMedicalCosmetics, MedicalCosmetics.class);
         Image cosmeticImage = imageService.createImage(image);
+        if(cosmeticImage == null) return null;
         medicalCosmetics.setImage(cosmeticImage);
         return repository.save(medicalCosmetics);
     }
@@ -45,6 +48,7 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
 
     @Override
     public MedicalCosmetics edit(EditMedicalCosmeticsDto editMedicalCosmetics) {
+        if(!MedicalCosmeticsValidation.isEditOperationValid(editMedicalCosmetics)) return null;
         MedicalCosmetics edited = mapper.map(editMedicalCosmetics, MedicalCosmetics.class);
         MedicalCosmetics cosmetic = repository.findById(editMedicalCosmetics.getId()).orElse(null);
         if(cosmetic == null) return null;
@@ -68,6 +72,7 @@ public class MedicalCosmeticsServiceImpl implements MedicalCosmeticsService {
         MedicalCosmetics cosmetic = repository.findById(id).orElse(null);
         if(cosmetic == null) return null;
         Image cosmeticImage = imageService.createImage(image);
+        if(cosmeticImage == null) return null;
         cosmetic.setImage(cosmeticImage);
         return repository.save(cosmetic);
     }
