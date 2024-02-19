@@ -3,9 +3,10 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { get, put, remove } from "../http-client/httpClient";
+import { get, put} from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
+import { removeService } from "../shared/removeService";
 
 
 const SanitaryMaterialDetails = () => {
@@ -36,13 +37,9 @@ const SanitaryMaterialDetails = () => {
     }
 
     const removeData = () => {
-        remove("http://localhost:8080/api/sanitaryMaterials/" + data.id)
-            .then(() => {
-                navigate("/sanitaryMaterials", { replace: true })
-            })
-            .catch(() => {
-                errorMessage("Neuspješno brisanje sanitetskog materijala");
-            })
+        removeService("http://localhost:8080/api/sanitaryMaterials/" + data.id, function (){
+            navigate("/sanitaryMaterials", { replace: true });
+        }, "Neuspješno brisanje sanitetskog materijala");
     }
 
     const changeImage = (e) => {

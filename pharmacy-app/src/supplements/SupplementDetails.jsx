@@ -3,9 +3,10 @@ import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, put, remove } from "../http-client/httpClient";
+import { get, put } from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
+import { removeService } from "../shared/removeService";
 
 
 const SupplementDetails = () => {
@@ -37,13 +38,9 @@ const SupplementDetails = () => {
     }
 
     const removeData = () => {
-        remove("http://localhost:8080/api/supplement/" + data.id)
-            .then(() => {
-                navigate("/supplements", { replace: true })
-            })
-            .catch(() => {
-                errorMessage("Neuspješno brisanje dijetetskog suplementa");
-            })
+        removeService("http://localhost:8080/api/supplement/" + data.id, function (){
+            navigate("/supplements", { replace: true });
+        }, "Neuspješno brisanje dijetetskog suplementa");
     }
 
     const changeImage = (e) => {

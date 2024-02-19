@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, put, remove } from "../http-client/httpClient"
+import { get, put } from "../http-client/httpClient"
 import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import Select from "../inputs/Select";
 import TextArea from "../inputs/TextArea";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
+import { removeService } from "../shared/removeService";
 
 
 const MedicineDetails = () => {
@@ -45,13 +46,9 @@ const MedicineDetails = () => {
     }
 
     const removeData = () => {
-        remove("http://localhost:8080/api/medicine/" + data.id)
-            .then(() => {
-                navigate("/", { replace: true })
-            })
-            .catch(() => {
-                errorMessage("Neuspješno brisanje lijeka");
-            })
+        removeService("http://localhost:8080/api/medicine/" + data.id, function () {
+            navigate("/", { replace: true });
+        }, "Neuspješno brisanje lijeka");
     }
 
     const changeImage = (e) => {

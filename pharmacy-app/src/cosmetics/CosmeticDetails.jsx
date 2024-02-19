@@ -4,9 +4,10 @@ import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import Select from "../inputs/Select";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, put, remove } from "../http-client/httpClient";
+import { get, put } from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
+import { removeService } from "../shared/removeService";
 
 const CosmeticDetails = () => {
 
@@ -46,13 +47,10 @@ const CosmeticDetails = () => {
     }
 
     const removeData = () => {
-        remove("http://localhost:8080/api/cosmetics/" + data.id)
-            .then(() => {
-                navigate("/cosmetics", { replace: true })
-            })
-            .catch(() => {
-                errorMessage("Neuspješno brisanje kozmetičkog preparata");
-            })
+        removeService("http://localhost:8080/api/cosmetics/" + data.id, function (){
+            navigate("/cosmetics", { replace: true });
+        }, "Neuspješno brisanje kozmetičkog preparata");
+        
     }
 
     const changeImage = (e) => {

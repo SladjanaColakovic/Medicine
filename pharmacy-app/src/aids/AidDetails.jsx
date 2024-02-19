@@ -3,9 +3,10 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { get, put, remove } from "../http-client/httpClient";
+import { get, put } from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
+import { removeService } from "../shared/removeService";
 
 const AidDetails = () => {
 
@@ -35,13 +36,9 @@ const AidDetails = () => {
     }
 
     const removeData = () => {
-        remove("http://localhost:8080/api/medicalAid/" + data.id)
-            .then(() => {
-                navigate("/aids", { replace: true })
-            })
-            .catch(() => {
-                errorMessage("Neuspješno brisanje medicinskog pomagala");
-            })
+        removeService("http://localhost:8080/api/medicalAid/" + data.id, function () {
+            navigate("/aids", { replace: true });
+        }, "Neuspješno brisanje medicinskog pomagala");
     }
 
     const changeImage = (e) => {

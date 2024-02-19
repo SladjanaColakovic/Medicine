@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, put, remove } from "../http-client/httpClient";
+import { get, put} from "../http-client/httpClient";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
+import { removeService } from "../shared/removeService";
 
 
 const DeviceDetails = () => {
@@ -36,13 +37,10 @@ const DeviceDetails = () => {
     }
 
     const removeData = () => {
-        remove("http://localhost:8080/api/devices/" + data.id)
-            .then(() => {
-                navigate("/devices", { replace: true })
-            })
-            .catch(() => {
-                errorMessage("Neuspješno brisanje uređaja");
-            })
+        removeService("http://localhost:8080/api/devices/" + data.id, function () {
+            navigate("/devices", { replace: true });
+        }, "Neuspješno brisanje uređaja");
+
     }
 
     const changeImage = (e) => {
