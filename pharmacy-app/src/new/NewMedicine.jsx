@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
 import { errorMessage } from "../notifications/notification";
 import { postService } from "../shared/postService";
+import { addImageService } from "../shared/addImageService";
 
 
 const NewMedicine = () => {
@@ -59,14 +60,7 @@ const NewMedicine = () => {
     }
 
     const addImage = (e) => {
-        if (!e.target.files[0] || e.target.files[0].length == 0) {
-            return;
-        }
-
-        if (e.target.files[0].type.match(/image\/*/) == null) {
-            return;
-        }
-        setSelectedFile(e.target.files[0]);
+        setSelectedFile(addImageService(e));
     }
 
     return (

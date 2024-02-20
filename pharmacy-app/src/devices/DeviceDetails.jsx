@@ -7,6 +7,7 @@ import Button from "../buttons/Button";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
 import { removeService } from "../shared/removeService";
+import { addImageService } from "../shared/addImageService";
 
 
 const DeviceDetails = () => {
@@ -44,18 +45,11 @@ const DeviceDetails = () => {
     }
 
     const changeImage = (e) => {
-        if (!e.target.files[0] || e.target.files[0].length === 0) {
-            return;
-        }
-
-        if (e.target.files[0].type.match(/image\/*/) === null) {
-            return;
-        }
-
+        const file = addImageService(e);
         const formData = new FormData();
-        if (e.target.files[0]) {
+        if (file) {
             formData.append("id", new Blob([JSON.stringify(data.id)], { type: "application/json" }));
-            formData.append("image", e.target.files[0], e.target.files[0].name);
+            formData.append("image", file, file.name);
             put("http://localhost:8080/api/devices/image", formData)
                 .then((res) => {
                     setData(res.data);
