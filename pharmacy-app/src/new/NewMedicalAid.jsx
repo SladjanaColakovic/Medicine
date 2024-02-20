@@ -3,9 +3,8 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { post } from "../http-client/httpClient";
 import ImageUpload from "../inputs/ImageUpload";
-import { errorMessage } from "../notifications/notification";
+import { postService } from "../shared/postService";
 
 const NewMedicalAid = () => {
 
@@ -20,19 +19,9 @@ const NewMedicalAid = () => {
             name: name,
             description: description,
         }
-        const formData = new FormData();
-        if (data !== null && selectedFile !== null) {
-            formData.append("aid", new Blob([JSON.stringify(data)], { type: "application/json" }));
-            formData.append("image", selectedFile, selectedFile.name);
-            post("http://localhost:8080/api/medicalAid", formData)
-                .then((res) => {
-                    navigate("/aids", { replace: true })
-                })
-                .catch((error) => {
-                    errorMessage("Neuspješno dodavanje novog medicinskog pomagala");
-                })
-
-        }
+        postService("http://localhost:8080/api/medicalAid", data, "aid", selectedFile, function () {
+            navigate("/aids", { replace: true });
+        }, "Neuspješno dodavanje novog medicinskog pomagala");
     }
 
     const addImage = (e) => {

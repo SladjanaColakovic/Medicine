@@ -2,10 +2,9 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import { useState } from "react";
-import { post } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
-import { errorMessage } from "../notifications/notification";
+import { postService } from "../shared/postService";
 
 const NewSanitaryMaterial = () => {
 
@@ -20,19 +19,9 @@ const NewSanitaryMaterial = () => {
             name: name,
             description: description,
         }
-        const formData = new FormData();
-        if (data !== null && selectedFile !== null) {
-            formData.append("material", new Blob([JSON.stringify(data)], { type: "application/json" }));
-            formData.append("image", selectedFile, selectedFile.name);
-            post("http://localhost:8080/api/sanitaryMaterials", formData)
-                .then((res) => {
-                    navigate("/sanitaryMaterials", { replace: true })
-                })
-                .catch((error) => {
-                    errorMessage("Neuspješno dodavanje novog sanitetskog materijala");
-                })
-
-        }
+        postService("http://localhost:8080/api/sanitaryMaterials", data, "material", selectedFile, function (){
+            navigate("/sanitaryMaterials", { replace: true });
+        }, "Neuspješno dodavanje novog sanitetskog materijala");
     }
 
     const addImage = (e) => {

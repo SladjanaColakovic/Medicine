@@ -3,10 +3,9 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Select from "../inputs/Select";
 import Button from "../buttons/Button";
-import { post } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
-import { errorMessage } from "../notifications/notification";
+import { postService } from "../shared/postService";
 
 const NewMedicalCosmetic = () => {
 
@@ -29,19 +28,9 @@ const NewMedicalCosmetic = () => {
             applicationMethod: applicationMethod,
             form: forms.find((el) => el.id === form.id).name
         }
-        const formData = new FormData();
-        if (data !== null && selectedFile !== null) {
-            formData.append("cosmetic", new Blob([JSON.stringify(data)], { type: "application/json" }));
-            formData.append("image", selectedFile, selectedFile.name);
-            post("http://localhost:8080/api/cosmetics", formData)
-                .then((res) => {
-                    navigate("/cosmetics", { replace: true })
-                })
-                .catch((error) => {
-                    errorMessage("Neuspješno dodavanje novog kozmetičkog preparata");
-                })
-
-        }
+        postService("http://localhost:8080/api/cosmetics", data, "cosmetic", selectedFile, function () {
+            navigate("/cosmetics", { replace: true });
+        }, "Neuspješno dodavanje novog kozmetičkog preparata");
     }
 
     const addImage = (e) => {

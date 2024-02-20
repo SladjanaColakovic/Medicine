@@ -2,10 +2,9 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import { useState } from "react";
-import { post } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
-import { errorMessage } from "../notifications/notification";
+import { postService } from "../shared/postService";
 
 
 const NewSupplement = () => {
@@ -33,19 +32,9 @@ const NewSupplement = () => {
             applicationMethod: applicationMethod,
             sideEffects: sideEffects,
         }
-        const formData = new FormData();
-        if (data !== null && selectedFile !== null) {
-            formData.append("supplement", new Blob([JSON.stringify(data)], { type: "application/json" }));
-            formData.append("image", selectedFile, selectedFile.name);
-            post("http://localhost:8080/api/supplement", formData)
-                .then((res) => {
-                    navigate("/supplements", { replace: true })
-                })
-                .catch((error) => {
-                    errorMessage("Neuspješno dodavanje novog dijetetskog suplementa");
-                })
-
-        }
+        postService("http://localhost:8080/api/supplement", data, "supplement", selectedFile, function (){
+            navigate("/supplements", { replace: true });
+        }, "Neuspješno dodavanje novog dijetetskog suplementa");
     }
 
     const addImage = (e) => {

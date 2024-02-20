@@ -2,11 +2,12 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Select from "../inputs/Select";
 import { useEffect, useState } from "react";
-import { get, post } from '../http-client/httpClient'
+import { get } from '../http-client/httpClient'
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
 import { errorMessage } from "../notifications/notification";
+import { postService } from "../shared/postService";
 
 
 const NewMedicine = () => {
@@ -31,7 +32,7 @@ const NewMedicine = () => {
             .then((res) => {
                 setClassifications(res.data);
             })
-            .catch((error) => {
+            .catch(() => {
                 errorMessage("Neuspješno dodavanje novog lijeka");
             })
 
@@ -52,19 +53,9 @@ const NewMedicine = () => {
                 id: classification.id
             }
         }
-        const formData = new FormData();
-        if (data !== null && selectedFile !== null) {
-            formData.append("medicine", new Blob([JSON.stringify(data)], { type: "application/json" }));
-            formData.append("image", selectedFile, selectedFile.name);
-            post("http://localhost:8080/api/medicine", formData)
-                .then((res) => {
-                    navigate("/", { replace: true })
-                })
-                .catch((error) => {
-                    console.log(error.message);
-                })
-
-        }
+        postService("http://localhost:8080/api/medicine", data, "medicine", selectedFile, function () {
+            navigate("/", { replace: true });
+        }, "Neuspješno dodavanje novog lijeka");
     }
 
     const addImage = (e) => {

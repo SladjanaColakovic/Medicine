@@ -2,10 +2,9 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";
 import { useState } from "react";
-import { post } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "../inputs/ImageUpload";
-import { errorMessage } from "../notifications/notification";
+import { postService } from "../shared/postService";
 
 const NewDevice = () => {
 
@@ -22,19 +21,9 @@ const NewDevice = () => {
             description: description,
             guide: guide
         }
-        const formData = new FormData();
-        if (data !== null && selectedFile !== null) {
-            formData.append("device", new Blob([JSON.stringify(data)], { type: "application/json" }));
-            formData.append("image", selectedFile, selectedFile.name);
-            post("http://localhost:8080/api/devices", formData)
-                .then((res) => {
-                    navigate("/devices", { replace: true })
-                })
-                .catch(() => {
-                    errorMessage("Neuspješno dodavanje novog uređaja za medicinsku dijagnostiku");
-                })
-
-        }
+        postService("http://localhost:8080/api/devices", data, "device", selectedFile, function () {
+            navigate("/devices", { replace: true });
+        }, "Neuspješno dodavanje novog uređaja za medicinsku dijagnostiku");
     }
 
     const addImage = (e) => {
