@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { get, getWithParams } from "../http-client/httpClient";
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
-import Search from "../inputs/Search";
 import {errorMessage} from '../notifications/notification';
+import SearchContainer from "../components/SearchContainer";
+import NoResults from "../components/NoResults";
 
 const Medicines = () => {
 
@@ -43,7 +44,7 @@ const Medicines = () => {
         navigate("/medicineDetails/" + id);
     }
 
-    const serach = (searchTerm) => {
+    const search = (searchTerm) => {
         const params = {
             searchTerm: searchTerm,
             classification: classification.id
@@ -67,15 +68,8 @@ const Medicines = () => {
             <div className="content">
                 <h1>Lijekovi</h1>
                 <h3>{classification && classification.name}</h3>
-                <div className="row">
-                    <div className="col-9"></div>
-                    <div className="col-3">
-                        <Search handleSearch={(e) => serach(e.target.value)} />
-                    </div>
-                </div>
-                {data && data.length === 0 && <p className="noResult">
-                    Nema rezultata pretrage...
-                </p>}
+                <SearchContainer search={search}/>
+                <NoResults data={data}/>
                 {data && data.map((medicine) => (<div className="row" key={medicine.id}>
                     <div className="box">
                         <div className="row">

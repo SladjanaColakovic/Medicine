@@ -1,9 +1,10 @@
-import Search from "../inputs/Search";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, getWithParams } from "../http-client/httpClient";
 import Button from "../buttons/Button";
 import {errorMessage} from '../notifications/notification';
+import SearchContainer from "../components/SearchContainer";
+import NoResults from "../components/NoResults";
 
 const Cosmetics = () => {
 
@@ -42,15 +43,8 @@ const Cosmetics = () => {
         <div className="main">
             <div className="content-margin">
                 <h1>Medicinska kozmetika</h1>
-                <div className="row">
-                    <div className="col-9"></div>
-                    <div className="col-3">
-                        <Search handleSearch={(e) => search(e.target.value)} />
-                    </div>
-                </div>
-                {data && data.length === 0 && <p className="noResult">
-                    Nema rezultata pretrage...
-                </p>}
+                <SearchContainer search={search}/>
+                <NoResults data={data}/>
                 {data && data.map((cosmetic) => (<div className="row" key={cosmetic.id}>
                     <div className="box">
                         <div className="row">

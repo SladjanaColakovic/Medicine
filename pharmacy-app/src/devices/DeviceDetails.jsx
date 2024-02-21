@@ -54,7 +54,7 @@ const DeviceDetails = () => {
                 .then((res) => {
                     setData(res.data);
                 })
-                .catch((error) => {
+                .catch(() => {
                     errorMessage("Neuspješna izmjena forografije uređaja");
                 })
         }

@@ -1,9 +1,10 @@
-import Search from "../inputs/Search";
 import Button from "../buttons/Button";
 import { useEffect, useState } from "react";
 import { get, getWithParams } from "../http-client/httpClient";
 import { useNavigate } from "react-router-dom";
-import {errorMessage} from '../notifications/notification';
+import { errorMessage } from '../notifications/notification';
+import SearchContainer from "../components/SearchContainer";
+import NoResults from "../components/NoResults";
 
 const Devices = () => {
 
@@ -42,15 +43,8 @@ const Devices = () => {
         <div className="main">
             <div className="content-margin">
                 <h1>Uređaji za medicinsku dijagnostiku</h1>
-                <div className="row">
-                    <div className="col-9"></div>
-                    <div className="col-3">
-                        <Search handleSearch={(e) => search(e.target.value)} />
-                    </div>
-                </div>
-                {data && data.length === 0 && <p className="noResult">
-                    Nema rezultata pretrage...
-                </p>}
+                <SearchContainer search={search}/>
+                <NoResults data={data}/>
                 {data && data.map((device) => (<div className="row" key={device.id}>
                     <div className="box">
                         <div className="row">
