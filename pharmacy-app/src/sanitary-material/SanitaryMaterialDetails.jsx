@@ -3,7 +3,7 @@ import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { get, put} from "../http-client/httpClient";
+import { get, put } from "../http-client/httpClient";
 import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
 import { removeService } from "../shared/removeService";
@@ -38,7 +38,7 @@ const SanitaryMaterialDetails = () => {
     }
 
     const removeData = () => {
-        removeService("http://localhost:8080/api/sanitaryMaterials/" + data.id, function (){
+        removeService("http://localhost:8080/api/sanitaryMaterials/" + data.id, function () {
             navigate("/sanitaryMaterials", { replace: true });
         }, "Neuspješno brisanje sanitetskog materijala");
     }

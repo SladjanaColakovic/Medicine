@@ -1,6 +1,6 @@
 import Search from "../inputs/Search";
 
-const SearchContainer = ({search}) => {
+const SearchContainer = ({ search }) => {
     return (
         <div className="row">
             <div className="col-9"></div>

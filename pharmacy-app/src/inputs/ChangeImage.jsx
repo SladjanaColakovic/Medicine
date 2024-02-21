@@ -1,4 +1,4 @@
-const ChangeImage = ({data, changeImage}) => {
+const ChangeImage = ({ data, changeImage }) => {
     return (
         <div className="hero-image">
             <img className="image" src={'data:image/jpeg;base64,' + data} />

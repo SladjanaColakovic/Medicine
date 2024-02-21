@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { get, getWithParams } from "../http-client/httpClient";
 import Button from "../buttons/Button";
 import { useNavigate } from "react-router-dom";
-import {errorMessage} from '../notifications/notification';
+import { errorMessage } from '../notifications/notification';
 import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
+import MedicineClassifications from "../components/MedicineClassifications";
 
 const Medicines = () => {
 
@@ -60,16 +61,12 @@ const Medicines = () => {
 
     return (
         <div className="main">
-            <ul className="classification">
-                {classifications && classifications.map((item) => (
-                    <li key={item.id}><Button name={item.name} handleClick={() => changeClassification(item)} /></li>
-                ))}
-            </ul>
+            <MedicineClassifications classifications={classifications} changeClassification={changeClassification} />
             <div className="content">
                 <h1>Lijekovi</h1>
                 <h3>{classification && classification.name}</h3>
-                <SearchContainer search={search}/>
-                <NoResults data={data}/>
+                <SearchContainer search={search} />
+                <NoResults data={data} />
                 {data && data.map((medicine) => (<div className="row" key={medicine.id}>
                     <div className="box">
                         <div className="row">

@@ -13,6 +13,5 @@ export const postService = (requestUrl, data, dataName, file, onSuccess, message
             .catch(() => {
                 errorMessage(message);
             })
-
     }
 }

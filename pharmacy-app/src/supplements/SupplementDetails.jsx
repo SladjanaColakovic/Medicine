@@ -38,7 +38,7 @@ const SupplementDetails = () => {
     }
 
     const removeData = () => {
-        removeService("http://localhost:8080/api/supplement/" + data.id, function (){
+        removeService("http://localhost:8080/api/supplement/" + data.id, function () {
             navigate("/supplements", { replace: true });
         }, "Neuspješno brisanje dijetetskog suplementa");
     }

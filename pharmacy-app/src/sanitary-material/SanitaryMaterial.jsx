@@ -2,7 +2,7 @@ import Button from "../buttons/Button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get, getWithParams } from "../http-client/httpClient";
-import {errorMessage} from '../notifications/notification';
+import { errorMessage } from '../notifications/notification';
 import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
 
@@ -45,8 +45,8 @@ const SanitaryMaterial = () => {
         <div className="main">
             <div className="content-margin">
                 <h1>Sanitetski materijal</h1>
-                <SearchContainer search={search}/>
-                <NoResults data={data}/>
+                <SearchContainer search={search} />
+                <NoResults data={data} />
                 {data && data.map((material) => (<div className="row" key={material.id}>
                     <div className="box">
                         <div className="row">

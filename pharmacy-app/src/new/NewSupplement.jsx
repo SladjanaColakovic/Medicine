@@ -33,7 +33,7 @@ const NewSupplement = () => {
             applicationMethod: applicationMethod,
             sideEffects: sideEffects,
         }
-        postService("http://localhost:8080/api/supplement", data, "supplement", selectedFile, function (){
+        postService("http://localhost:8080/api/supplement", data, "supplement", selectedFile, function () {
             navigate("/supplements", { replace: true });
         }, "Neuspješno dodavanje novog dijetetskog suplementa");
     }

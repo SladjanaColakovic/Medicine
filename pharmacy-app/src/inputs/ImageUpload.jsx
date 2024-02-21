@@ -1,6 +1,6 @@
 import noImage from "../images/no_image.jpg"
 
-const ImageUpload = ({selectedFile, changeImage}) => {
+const ImageUpload = ({ selectedFile, changeImage }) => {
     return (
         <div className="hero-image">
             <img className="image" src={(selectedFile !== null) ? URL.createObjectURL(selectedFile) : noImage} alt="Centar" />

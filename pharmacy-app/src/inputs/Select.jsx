@@ -1,5 +1,5 @@
-const Select = ({name, selectedItem, items, setItem}) => {
-    return ( 
+const Select = ({ name, selectedItem, items, setItem }) => {
+    return (
         <div>
             <span>{name}</span>
             <select value={selectedItem} onChange={setItem}>
@@ -8,7 +8,7 @@ const Select = ({name, selectedItem, items, setItem}) => {
                 ))}
             </select>
         </div>
-     );
+    );
 }
- 
+
 export default Select;

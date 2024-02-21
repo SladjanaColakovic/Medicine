@@ -43,8 +43,8 @@ const Devices = () => {
         <div className="main">
             <div className="content-margin">
                 <h1>Uređaji za medicinsku dijagnostiku</h1>
-                <SearchContainer search={search}/>
-                <NoResults data={data}/>
+                <SearchContainer search={search} />
+                <NoResults data={data} />
                 {data && data.map((device) => (<div className="row" key={device.id}>
                     <div className="box">
                         <div className="row">

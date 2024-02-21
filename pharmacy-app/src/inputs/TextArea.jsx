@@ -1,4 +1,4 @@
-const TextArea = ({name, rows, value, changeValue}) => {
+const TextArea = ({ name, rows, value, changeValue }) => {
     return (
         <div>
             <span>{name}</span>

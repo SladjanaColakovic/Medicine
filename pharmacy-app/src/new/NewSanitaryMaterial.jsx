@@ -20,7 +20,7 @@ const NewSanitaryMaterial = () => {
             name: name,
             description: description,
         }
-        postService("http://localhost:8080/api/sanitaryMaterials", data, "material", selectedFile, function (){
+        postService("http://localhost:8080/api/sanitaryMaterials", data, "material", selectedFile, function () {
             navigate("/sanitaryMaterials", { replace: true });
         }, "Neuspješno dodavanje novog sanitetskog materijala");
     }

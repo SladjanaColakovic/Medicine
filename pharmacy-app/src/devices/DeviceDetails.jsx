@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { get, put} from "../http-client/httpClient";
+import { get, put } from "../http-client/httpClient";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Button from "../buttons/Button";

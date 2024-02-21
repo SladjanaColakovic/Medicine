@@ -5,27 +5,27 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     const showMedicines = () => {
-        navigate("/", {replace: true})
+        navigate("/", { replace: true })
     }
 
     const showCosmetics = () => {
-        navigate("/cosmetics", {replace: true})
-     }
-    const showSupplements = () => { 
-        navigate("/supplements", {replace: true})
+        navigate("/cosmetics", { replace: true })
+    }
+    const showSupplements = () => {
+        navigate("/supplements", { replace: true })
     }
     const showMedicalAids = () => {
-        navigate("/aids", {replace: true})
+        navigate("/aids", { replace: true })
     }
     const showSanitaryMaterials = () => {
-        navigate("/sanitaryMaterials", {replace: true})
+        navigate("/sanitaryMaterials", { replace: true })
     }
     const showMedicalDiagnosticsDevices = () => {
-        navigate("/devices", {replace: true})
+        navigate("/devices", { replace: true })
     }
 
     const addNew = () => {
-        navigate("/add", {replace: true})
+        navigate("/add", { replace: true })
     }
 
     return (

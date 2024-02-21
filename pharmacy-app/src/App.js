@@ -21,7 +21,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route path='/' element={<Medicines />}></Route>
-        <Route path='/medicineDetails/:id' element={<MedicineDetails/>}></Route>
+        <Route path='/medicineDetails/:id' element={<MedicineDetails />}></Route>
         <Route path='/supplements' element={<Supplements />}></Route>
         <Route path='/supplementDetails/:id' element={<SupplementDetails />}></Route>
         <Route path='/cosmetics' element={<Cosmetics />}></Route>
@@ -31,7 +31,7 @@ function App() {
         <Route path='/aids' element={<Aids />}></Route>
         <Route path='/aidDetails/:id' element={<AidDetails />}></Route>
         <Route path='/devices' element={<Devices />}></Route>
-        <Route path='/deviceDetails/:id' element={<DeviceDetails/>}></Route>
+        <Route path='/deviceDetails/:id' element={<DeviceDetails />}></Route>
         <Route path='/add' element={<New />}></Route>
       </Route>
     </Routes>
@@ -46,7 +46,7 @@ function Layout() {
     <div>
       <NavBar />
       <Outlet />
-      <NotificationContainer/>
+      <NotificationContainer />
     </div>
   );
 }

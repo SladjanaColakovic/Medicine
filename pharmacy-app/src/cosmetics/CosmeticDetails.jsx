@@ -48,10 +48,10 @@ const CosmeticDetails = () => {
     }
 
     const removeData = () => {
-        removeService("http://localhost:8080/api/cosmetics/" + data.id, function (){
+        removeService("http://localhost:8080/api/cosmetics/" + data.id, function () {
             navigate("/cosmetics", { replace: true });
         }, "Neuspješno brisanje kozmetičkog preparata");
-        
+
     }
 
     const changeImage = (e) => {
