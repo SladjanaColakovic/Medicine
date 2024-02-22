@@ -5,6 +5,7 @@ import { get, getWithParams } from "../http-client/httpClient";
 import { errorMessage } from '../notifications/notification';
 import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
+import ImageContainer from "../components/ImageContainer";
 
 
 const Aids = () => {
@@ -49,9 +50,7 @@ const Aids = () => {
                 {data && data.map((aid) => (<div className="row" key={aid.id}>
                     <div className="box">
                         <div className="row">
-                            <div className="col-5">
-                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + aid.image.data} alt="Centar" />
-                            </div>
+                            <ImageContainer entity={aid}/>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(aid.id)} />
                                 <p> <span>Naziv:</span> {aid.name}</p>

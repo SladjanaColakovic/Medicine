@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { errorMessage } from '../notifications/notification';
 import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
+import ImageContainer from "../components/ImageContainer";
 
 const Devices = () => {
 
@@ -48,9 +49,7 @@ const Devices = () => {
                 {data && data.map((device) => (<div className="row" key={device.id}>
                     <div className="box">
                         <div className="row">
-                            <div className="col-5">
-                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + device.image.data} alt="Centar" />
-                            </div>
+                            <ImageContainer entity={device}/>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(device.id)} />
                                 <p> <span>Naziv:</span> {device.name}</p>

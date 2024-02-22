@@ -79,7 +79,6 @@ const SanitaryMaterialDetails = () => {
                                     <TextArea name={"Opis:"} rows={"3"} value={data.description} changeValue={(e) => setData({ ...data, description: e.target.value })} />
                                 </div>
                             </div>
-
                         }
                     </div>
                 </div>

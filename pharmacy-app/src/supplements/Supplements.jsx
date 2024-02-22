@@ -5,6 +5,7 @@ import Button from "../buttons/Button";
 import { errorMessage } from '../notifications/notification';
 import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
+import ImageContainer from "../components/ImageContainer";
 
 const Supplements = () => {
 
@@ -48,9 +49,7 @@ const Supplements = () => {
                 {data && data.map((supplement) => (<div className="row" key={supplement.id}>
                     <div className="box">
                         <div className="row">
-                            <div className="col-5">
-                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + supplement.image.data} alt="Centar" />
-                            </div>
+                            <ImageContainer entity={supplement}/>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(supplement.id)} />
                                 <p> <span>Naziv:</span> {supplement.name}</p>

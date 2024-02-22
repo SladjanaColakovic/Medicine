@@ -97,7 +97,6 @@ const MedicineDetails = () => {
                                     <TextArea name={"Neželjena dejstva:"} rows={"4"} value={data.sideEffects} changeValue={(e) => setData({ ...data, sideEffects: e.target.value })} />
                                 </div>
                             </div>
-
                         }
                     </div>
                 </div>

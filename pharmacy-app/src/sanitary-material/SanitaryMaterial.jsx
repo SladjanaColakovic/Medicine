@@ -5,6 +5,7 @@ import { get, getWithParams } from "../http-client/httpClient";
 import { errorMessage } from '../notifications/notification';
 import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
+import ImageContainer from "../components/ImageContainer";
 
 
 const SanitaryMaterial = () => {
@@ -50,9 +51,7 @@ const SanitaryMaterial = () => {
                 {data && data.map((material) => (<div className="row" key={material.id}>
                     <div className="box">
                         <div className="row">
-                            <div className="col-5">
-                                <img style={{ width: "270px", height: "auto" }} src={'data:image/jpeg;base64,' + material.image.data} alt="Centar" />
-                            </div>
+                            <ImageContainer entity={material}/>
                             <div className="col-7">
                                 <Button name={"Detalji"} handleClick={() => showDetails(material.id)} />
                                 <p> <span>Naziv:</span> {material.name}</p>
