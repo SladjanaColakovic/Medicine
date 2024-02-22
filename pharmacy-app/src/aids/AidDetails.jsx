@@ -1,4 +1,3 @@
-import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,6 +7,7 @@ import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
 import { removeService } from "../shared/removeService";
 import { addImageService } from "../shared/addImageService";
+import ButtonsContainer from "../components/ButtonsContainer";
 
 const AidDetails = () => {
 
@@ -71,14 +71,7 @@ const AidDetails = () => {
                                 <div className="col-6">
                                     <ChangeImage data={data.image.data} changeImage={(e) => changeImage(e)} />
                                     <br />
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <Button name={"Izmijeni"} handleClick={edit} />
-                                        </div>
-                                        <div id="delete" className="col-2">
-                                            <Button name={"Izbriši"} handleClick={removeData} />
-                                        </div>
-                                    </div>
+                                    <ButtonsContainer edit={edit} removeData={removeData}/>
                                 </div>
                                 <div className="col-6">
                                     <Input name={"Naziv:"} type={"text"} value={data.name} changeValue={(e) => setData({ ...data, name: e.target.value })} />

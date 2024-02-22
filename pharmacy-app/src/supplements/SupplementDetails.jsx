@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,6 +7,7 @@ import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
 import { removeService } from "../shared/removeService";
 import { addImageService } from "../shared/addImageService";
+import ButtonsContainer from "../components/ButtonsContainer";
 
 
 const SupplementDetails = () => {
@@ -75,14 +75,8 @@ const SupplementDetails = () => {
                                     <Input name={"Naziv:"} type={"text"} value={data.name} changeValue={(e) => setData({ ...data, name: e.target.value })} />
                                     <TextArea name={"Doze:"} rows={"4"} value={data.dose} changeValue={(e) => setData({ ...data, dose: e.target.value })} />
                                     <TextArea name={"Sastav:"} rows={"4"} value={data.composition} changeValue={(e) => setData({ ...data, composition: e.target.value })} />
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <Button name={"Izmijeni"} handleClick={edit} />
-                                        </div>
-                                        <div id="delete" className="col-2">
-                                            <Button name={"Izbriši"} handleClick={removeData} />
-                                        </div>
-                                    </div>
+                                    <br />
+                                    <ButtonsContainer edit={edit} removeData={removeData}/>
                                 </div>
                                 <div className="col-6">
                                     <TextArea name={"Metod primjene:"} rows={"4"} value={data.applicationMethod} changeValue={(e) => setData({ ...data, applicationMethod: e.target.value })} />

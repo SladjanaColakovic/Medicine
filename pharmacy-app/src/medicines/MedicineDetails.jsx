@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { get, put } from "../http-client/httpClient"
-import Button from "../buttons/Button";
 import Input from "../inputs/Input";
 import Select from "../inputs/Select";
 import TextArea from "../inputs/TextArea";
@@ -9,6 +8,7 @@ import ChangeImage from "../inputs/ChangeImage";
 import { errorMessage, successMessage } from "../notifications/notification";
 import { removeService } from "../shared/removeService";
 import { addImageService } from "../shared/addImageService";
+import ButtonsContainer from "../components/ButtonsContainer";
 
 
 const MedicineDetails = () => {
@@ -86,14 +86,8 @@ const MedicineDetails = () => {
                                     <Select items={classifications} selectedItem={data.classification.id} name={"Klasifikacija lijeka:"} setItem={(e) => setData({ ...data, classification: { ...data.classification, id: e.target.value } })} />
                                     <TextArea name={"Doze:"} rows={"2"} value={data.dose} changeValue={(e) => setData({ ...data, dose: e.target.value })} />
                                     <TextArea name={"Sastav:"} rows={"2"} value={data.composition} changeValue={(e) => setData({ ...data, composition: e.target.value })} />
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <Button name={"Izmijeni"} handleClick={edit} />
-                                        </div>
-                                        <div id="delete" className="col-2">
-                                            <Button name={"Izbriši"} handleClick={removeData} />
-                                        </div>
-                                    </div>
+                                    <br />
+                                    <ButtonsContainer edit={edit} removeData={removeData}/>
                                 </div>
                                 <div className="col-6">
                                     <TextArea name={"Metod primjene:"} rows={"4"} value={data.applicationMethod} changeValue={(e) => setData({ ...data, applicationMethod: e.target.value })} />
