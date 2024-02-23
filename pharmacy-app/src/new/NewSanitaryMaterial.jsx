@@ -12,17 +12,26 @@ const NewSanitaryMaterial = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
+    const [nameError, setNameError] = useState('');
+    const [descriptionError, setDescriptionError] = useState('');
 
     const navigate = useNavigate();
 
     const handleAdd = () => {
-        const data = {
-            name: name,
-            description: description,
+        if (name === '') {
+            setNameError("Unesite naziv sanitetskog materijala");
+        } else if (description === '') {
+            setNameError('');
+            setDescriptionError("Unesite opis sanitetskog materijala");
+        } else {
+            const data = {
+                name: name,
+                description: description,
+            }
+            postService("http://localhost:8080/api/sanitaryMaterials", data, "material", selectedFile, function () {
+                navigate("/sanitaryMaterials", { replace: true });
+            }, "Neuspješno dodavanje novog sanitetskog materijala");
         }
-        postService("http://localhost:8080/api/sanitaryMaterials", data, "material", selectedFile, function () {
-            navigate("/sanitaryMaterials", { replace: true });
-        }, "Neuspješno dodavanje novog sanitetskog materijala");
     }
 
     const addImage = (e) => {
@@ -37,8 +46,8 @@ const NewSanitaryMaterial = () => {
                     <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)} />
                 </div>
                 <div className="col-6">
-                    <Input name={"Naziv:"} value={name} type={"text"} changeValue={(e) => setName(e.target.value)} />
-                    <TextArea rows={"3"} name={"Opis:"} value={description} changeValue={(e) => setDescription(e.target.value)} />
+                    <Input name={"Naziv:"} value={name} type={"text"} changeValue={(e) => setName(e.target.value)} errorMessage={nameError} />
+                    <TextArea rows={"3"} name={"Opis:"} value={description} changeValue={(e) => setDescription(e.target.value)} errorMessage={descriptionError} />
                 </div>
             </div>
             <br />

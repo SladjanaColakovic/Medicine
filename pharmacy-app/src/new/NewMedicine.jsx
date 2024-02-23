@@ -25,6 +25,15 @@ const NewMedicine = () => {
     const [sideEffects, setSideEffects] = useState('');
     const [classification, setClassification] = useState({ id: 1 });
     const [selectedFile, setSelectedFile] = useState(null);
+    const [proprietaryNameError, setProprietaryNameError] = useState('');
+    const [notProprietaryNameError, setNotProprietaryNameError] = useState('');
+    const [applicationMethodError, setApplicationMethodError] = useState('');
+    const [indicationsError, setIndicationsError] = useState('');
+    const [interactionsError, setInteractionsError] = useState('');
+    const [contraindicationsError, setContraindicationsError] = useState('');
+    const [doseError, setDoseError] = useState('');
+    const [compositionError, setCompositionError] = useState('');
+    const [sideEffectsError, setSideEffectsError] = useState('');
 
     const navigate = useNavigate();
 
@@ -40,23 +49,79 @@ const NewMedicine = () => {
     }, []);
 
     const handleAdd = () => {
-        const data = {
-            proprietaryName: proprietaryName,
-            notProprietaryName: notProprietaryName,
-            dose: dose,
-            composition: composition,
-            indications: indications,
-            interactions: interactions,
-            contraindications: contraindications,
-            applicationMethod: applicationMethod,
-            sideEffects: sideEffects,
-            classification: {
-                id: classification.id
+        if (proprietaryName === '') {
+            setProprietaryNameError("Unesite zaštićeni naziv lijeka");
+        } else if (notProprietaryName === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError("Unesite nezaštićeni naziv lijeka");
+        } else if (dose === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError("Unesite doze lijeka");
+        } else if (composition === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError('');
+            setCompositionError("Unesite sastav lijeka");
+        } else if (applicationMethod === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError('');
+            setCompositionError('');
+            setApplicationMethodError("Unesite metod primjene lijeka");
+        } else if (sideEffects === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError('');
+            setCompositionError('');
+            setApplicationMethodError('');
+            setSideEffectsError("Unesite neželjena dejstva lijeka");
+        } else if (interactions === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError('');
+            setCompositionError('');
+            setApplicationMethodError('');
+            setSideEffectsError('');
+            setInteractionsError("Unesite interakcije lijeka");
+        } else if (indications === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError('');
+            setCompositionError('');
+            setApplicationMethodError('');
+            setSideEffectsError('');
+            setInteractionsError('');
+            setIndicationsError("Unesite indikacije lijeka");
+        } else if (contraindications === '') {
+            setProprietaryNameError('');
+            setNotProprietaryNameError('');
+            setDoseError('');
+            setCompositionError('');
+            setApplicationMethodError('');
+            setSideEffectsError('');
+            setInteractionsError('');
+            setIndicationsError('');
+            setContraindicationsError("Unesite kontraindikacije lijeka");
+        } else {
+            const data = {
+                proprietaryName: proprietaryName,
+                notProprietaryName: notProprietaryName,
+                dose: dose,
+                composition: composition,
+                indications: indications,
+                interactions: interactions,
+                contraindications: contraindications,
+                applicationMethod: applicationMethod,
+                sideEffects: sideEffects,
+                classification: {
+                    id: classification.id
+                }
             }
+            postService("http://localhost:8080/api/medicine", data, "medicine", selectedFile, function () {
+                navigate("/", { replace: true });
+            }, "Neuspješno dodavanje novog lijeka");
         }
-        postService("http://localhost:8080/api/medicine", data, "medicine", selectedFile, function () {
-            navigate("/", { replace: true });
-        }, "Neuspješno dodavanje novog lijeka");
     }
 
     const addImage = (e) => {
@@ -69,18 +134,18 @@ const NewMedicine = () => {
                 <div className="col-6">
                     <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)} />
                     <br />
-                    <Input name={"Zaštićeno ime:"} value={proprietaryName} type={"text"} changeValue={(e) => setProprietaryName(e.target.value)} />
-                    <Input name={"Nezaštićeno ime:"} value={notProprietaryName} type={"text"} changeValue={(e) => setNotProprietaryName(e.target.value)} />
+                    <Input name={"Zaštićeni naziv:"} value={proprietaryName} type={"text"} changeValue={(e) => setProprietaryName(e.target.value)} errorMessage={proprietaryNameError} />
+                    <Input name={"Nezaštićeni naziv:"} value={notProprietaryName} type={"text"} changeValue={(e) => setNotProprietaryName(e.target.value)} errorMessage={notProprietaryNameError} />
                     {classifications && <Select items={classifications} name={"Klasifikacija lijeka:"} selectedItem={classification.id} setItem={(e) => setClassification({ ...classification, id: e.target.value })} />}
-                    <TextArea rows={"2"} name={"Doze:"} value={dose} changeValue={(e) => setDose(e.target.value)} />
+                    <TextArea rows={"2"} name={"Doze:"} value={dose} changeValue={(e) => setDose(e.target.value)} errorMessage={doseError} />
                 </div>
                 <div className="col-6">
-                    <TextArea rows={"2"} name={"Sastav:"} value={composition} changeValue={(e) => setComposition(e.target.value)} />
-                    <TextArea rows={"3"} name={"Metod primjene:"} value={applicationMethod} changeValue={(e) => setApplicationMethod(e.target.value)} />
-                    <TextArea rows={"3"} name={"Neželjena dejstva:"} value={sideEffects} changeValue={(e) => setSideEffects(e.target.value)} />
-                    <TextArea rows={"3"} name={"Interakcije:"} value={interactions} changeValue={(e) => setInteractions(e.target.value)} />
-                    <TextArea rows={"3"} name={"Indikacije:"} value={indications} changeValue={(e) => setIndications(e.target.value)} />
-                    <TextArea rows={"3"} name={"Kontraindikacije:"} value={contraindications} changeValue={(e) => setContraindications(e.target.value)} />
+                    <TextArea rows={"2"} name={"Sastav:"} value={composition} changeValue={(e) => setComposition(e.target.value)} errorMessage={compositionError} />
+                    <TextArea rows={"3"} name={"Metod primjene:"} value={applicationMethod} changeValue={(e) => setApplicationMethod(e.target.value)} errorMessage={applicationMethodError} />
+                    <TextArea rows={"3"} name={"Neželjena dejstva:"} value={sideEffects} changeValue={(e) => setSideEffects(e.target.value)} errorMessage={sideEffectsError} />
+                    <TextArea rows={"3"} name={"Interakcije:"} value={interactions} changeValue={(e) => setInteractions(e.target.value)} errorMessage={interactionsError} />
+                    <TextArea rows={"3"} name={"Indikacije:"} value={indications} changeValue={(e) => setIndications(e.target.value)} errorMessage={indicationsError} />
+                    <TextArea rows={"3"} name={"Kontraindikacije:"} value={contraindications} changeValue={(e) => setContraindications(e.target.value)} errorMessage={contraindicationsError} />
                 </div>
             </div>
 
