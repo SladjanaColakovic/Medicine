@@ -293,3 +293,9 @@ input[type="file"] {
   color: #6b6a6a;
   text-align: center;
 }
+
+.error{
+  color: rgb(217, 83, 83);
+  font-size: 14px;
+  font-weight: 500;
+}

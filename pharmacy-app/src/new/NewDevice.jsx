@@ -13,18 +13,34 @@ const NewDevice = () => {
     const [description, setDescription] = useState('');
     const [guide, setGuide] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
+    const [nameError, setNameError] = useState('');
+    const [descriptionError, setDescriptionError] = useState('');
+    const [guideError, setGuideError] = useState('');
 
     const navigate = useNavigate();
 
     const handleAdd = () => {
-        const data = {
-            name: name,
-            description: description,
-            guide: guide
+        if (name === '') {
+            setNameError("Unesite naziv uređaja");
+        } else if (description === '') {
+            setNameError('');
+            setDescriptionError("Unesite opis uređaja");
+        } else if(guide === ''){
+            setGuideError("Unesite uputstvo za upotrebu uređaja");
+            setDescriptionError("");
+        } else {
+            setNameError('');
+            setDescriptionError('');
+            setGuideError('');
+            const data = {
+                name: name,
+                description: description,
+                guide: guide
+            }
+            postService("http://localhost:8080/api/devices", data, "device", selectedFile, function () {
+                navigate("/devices", { replace: true });
+            }, "Neuspješno dodavanje novog uređaja za medicinsku dijagnostiku");
         }
-        postService("http://localhost:8080/api/devices", data, "device", selectedFile, function () {
-            navigate("/devices", { replace: true });
-        }, "Neuspješno dodavanje novog uređaja za medicinsku dijagnostiku");
     }
 
     const addImage = (e) => {
@@ -39,9 +55,9 @@ const NewDevice = () => {
                     <ImageUpload selectedFile={selectedFile} changeImage={(e) => addImage(e)} />
                 </div>
                 <div className="col-6">
-                    <Input name={"Naziv:"} value={name} type={"text"} changeValue={(e) => setName(e.target.value)} />
-                    <TextArea rows={"3"} name={"Opis:"} value={description} changeValue={(e) => setDescription(e.target.value)} />
-                    <TextArea rows={"3"} name={"Uputstvo za upotrebu:"} value={guide} changeValue={(e) => setGuide(e.target.value)} />
+                    <Input name={"Naziv:"} value={name} type={"text"} changeValue={(e) => setName(e.target.value)} errorMessage={nameError} />
+                    <TextArea rows={"3"} name={"Opis:"} value={description} changeValue={(e) => setDescription(e.target.value)} errorMessage={descriptionError}/>
+                    <TextArea  rows={"3"} name={"Uputstvo za upotrebu:"} value={guide} changeValue={(e) => setGuide(e.target.value)} errorMessage={guideError}/>
                 </div>
             </div>
             <br />
