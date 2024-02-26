@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface DietarySupplementRepository extends JpaRepository<DietarySupplement, Long> {
     @Query("select s from DietarySupplement s where (:searchTerm is null OR lower(s.name) like concat('%', lower(:searchTerm), '%'))")
-    public List<DietarySupplement> search(String searchTerm);
+    List<DietarySupplement> search(String searchTerm);
 }

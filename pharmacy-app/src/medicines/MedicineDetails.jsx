@@ -10,8 +10,8 @@ import { removeService } from "../shared/removeService";
 import { addImageService } from "../shared/addImageService";
 import ButtonsContainer from "../components/ButtonsContainer";
 
-
 const MedicineDetails = () => {
+    
     const { id } = useParams();
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);

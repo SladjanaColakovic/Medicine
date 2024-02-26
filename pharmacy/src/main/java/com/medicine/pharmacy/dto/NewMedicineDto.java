@@ -1,6 +1,5 @@
 package com.medicine.pharmacy.dto;
 
-import com.medicine.pharmacy.model.MedicineClassification;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

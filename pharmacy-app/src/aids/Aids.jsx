@@ -7,7 +7,6 @@ import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
 import ImageContainer from "../components/ImageContainer";
 
-
 const Aids = () => {
 
     const [data, setData] = useState(null);

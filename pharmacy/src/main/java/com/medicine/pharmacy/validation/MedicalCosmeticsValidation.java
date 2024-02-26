@@ -10,7 +10,7 @@ public class MedicalCosmeticsValidation {
                 medicalCosmetics.getComposition() != null && !medicalCosmetics.getComposition().equals("") &&
                 medicalCosmetics.getDescription() != null && !medicalCosmetics.getDescription().equals("") &&
                 medicalCosmetics.getApplicationMethod() != null && !medicalCosmetics.getApplicationMethod().equals("") &&
-                medicalCosmetics.getForm() != null && !medicalCosmetics.getForm().equals("");
+                medicalCosmetics.getForm() != null;
     }
 
     public static Boolean isEditOperationValid(EditMedicalCosmeticsDto medicalCosmetics){
@@ -18,6 +18,6 @@ public class MedicalCosmeticsValidation {
                 medicalCosmetics.getComposition() != null && !medicalCosmetics.getComposition().equals("") &&
                 medicalCosmetics.getDescription() != null && !medicalCosmetics.getDescription().equals("") &&
                 medicalCosmetics.getApplicationMethod() != null && !medicalCosmetics.getApplicationMethod().equals("") &&
-                medicalCosmetics.getForm() != null && !medicalCosmetics.getForm().equals("");
+                medicalCosmetics.getForm() != null;
     }
 }

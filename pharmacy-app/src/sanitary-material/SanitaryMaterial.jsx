@@ -7,7 +7,6 @@ import SearchContainer from "../components/SearchContainer";
 import NoResults from "../components/NoResults";
 import ImageContainer from "../components/ImageContainer";
 
-
 const SanitaryMaterial = () => {
 
     const [data, setData] = useState(null);
@@ -40,7 +39,6 @@ const SanitaryMaterial = () => {
                 errorMessage("Neuspješna pretraga");
             })
     }
-
 
     return (
         <div className="main">

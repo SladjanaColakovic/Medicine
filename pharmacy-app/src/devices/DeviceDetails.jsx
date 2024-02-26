@@ -9,7 +9,6 @@ import { removeService } from "../shared/removeService";
 import { addImageService } from "../shared/addImageService";
 import ButtonsContainer from "../components/ButtonsContainer"
 
-
 const DeviceDetails = () => {
 
     const { id } = useParams();

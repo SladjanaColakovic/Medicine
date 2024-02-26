@@ -22,7 +22,6 @@ const NewMedicalCosmetic = () => {
     const [applicationMethodError, setApplicationMethodError] = useState('');
     const [compositionError, setCompositionError] = useState('');
 
-
     const navigate = useNavigate();
 
     const handleAdd = () => {
@@ -73,7 +72,6 @@ const NewMedicalCosmetic = () => {
                     <TextArea rows={"3"} name={"Metod primjene:"} value={applicationMethod} changeValue={(e) => setApplicationMethod(e.target.value)} errorMessage={applicationMethodError} />
                 </div>
             </div>
-
             <div id="add-btn">
                 <div className="row">
                     <div className="col-5"></div>

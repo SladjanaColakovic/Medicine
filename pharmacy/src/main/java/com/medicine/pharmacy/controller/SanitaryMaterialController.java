@@ -1,7 +1,6 @@
 package com.medicine.pharmacy.controller;
 
 import com.medicine.pharmacy.dto.EditSanitaryMaterialDto;
-import com.medicine.pharmacy.dto.NewMedicineDto;
 import com.medicine.pharmacy.dto.NewSanitaryMaterialDto;
 import com.medicine.pharmacy.model.SanitaryMaterial;
 import com.medicine.pharmacy.service.SanitaryMaterialService;

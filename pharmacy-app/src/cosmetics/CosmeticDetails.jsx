@@ -12,7 +12,6 @@ import ButtonsContainer from "../components/ButtonsContainer";
 
 const CosmeticDetails = () => {
 
-
     const { id } = useParams();
     const [data, setData] = useState(null);
     const forms = [{ id: 1, name: 'Krema' }, { id: 2, name: 'Mast' }, { id: 3, name: 'Pasta' }, { id: 4, name: 'Rastvor' }, { id: 5, name: 'Gel' }, { id: 6, name: 'Pjena' }, { id: 7, name: 'Ulje' }, { id: 8, name: 'Balzam' }, { id: 9, name: 'Serum' }, { id: 10, name: 'Ostalo' }];

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MedicalDiagnosticsDeviceRepository extends JpaRepository<MedicalDiagnosticsDevice, Long> {
     @Query("select d from MedicalDiagnosticsDevice d where (:searchTerm is null OR lower(d.name) like concat('%', lower(:searchTerm), '%'))")
-    public List<MedicalDiagnosticsDevice> search(String searchTerm);
+    List<MedicalDiagnosticsDevice> search(String searchTerm);
 }

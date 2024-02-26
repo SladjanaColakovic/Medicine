@@ -11,5 +11,5 @@ import java.util.List;
 public interface MedicalCosmeticsRepository extends JpaRepository<MedicalCosmetics, Long> {
 
     @Query("select c from MedicalCosmetics c where (:searchTerm is null OR lower(c.name) like concat('%', lower(:searchTerm), '%'))")
-    public List<MedicalCosmetics> search(String searchTerm);
+    List<MedicalCosmetics> search(String searchTerm);
 }

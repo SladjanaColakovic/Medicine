@@ -7,7 +7,6 @@ import ImageUpload from "../inputs/ImageUpload";
 import { postService } from "../shared/postService";
 import { addImageService } from "../shared/addImageService";
 
-
 const NewSupplement = () => {
 
     const [name, setName] = useState('');
@@ -114,7 +113,6 @@ const NewSupplement = () => {
                     <TextArea rows={"3"} name={"Kontraindikacije:"} value={contraindications} changeValue={(e) => setContraindications(e.target.value)} errorMessage={contraindicationsError} />
                 </div>
             </div>
-
             <div id="add-btn">
                 <div className="row">
                     <div className="col-5"></div>

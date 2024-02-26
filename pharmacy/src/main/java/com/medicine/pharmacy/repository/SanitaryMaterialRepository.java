@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface SanitaryMaterialRepository extends JpaRepository<SanitaryMaterial, Long> {
     @Query("select m from SanitaryMaterial m where (:searchTerm is null OR lower(m.name) like concat('%', lower(:searchTerm), '%'))")
-    public List<SanitaryMaterial> search(String searchTerm);
+    List<SanitaryMaterial> search(String searchTerm);
 }
