@@ -10,6 +10,7 @@ import ImageContainer from "../components/ImageContainer";
 const SanitaryMaterial = () => {
 
     const [data, setData] = useState(null);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +21,6 @@ const SanitaryMaterial = () => {
             .catch(() => {
                 errorMessage("Neuspješno učitavanje podataka");
             })
-
     }, []);
 
     const showDetails = (id) => {

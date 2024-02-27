@@ -10,6 +10,7 @@ import ImageContainer from "../components/ImageContainer";
 const Cosmetics = () => {
 
     const [data, setData] = useState(null);
+    
     const navigate = useNavigate();
 
     useEffect(() => {

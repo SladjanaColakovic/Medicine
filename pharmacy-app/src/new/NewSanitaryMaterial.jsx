@@ -38,7 +38,6 @@ const NewSanitaryMaterial = () => {
         setSelectedFile(addImageService(e));
     }
 
-
     return (
         <div>
             <div className="row">

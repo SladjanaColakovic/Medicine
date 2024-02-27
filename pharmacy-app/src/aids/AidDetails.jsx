@@ -13,6 +13,7 @@ const AidDetails = () => {
 
     const { id } = useParams();
     const [data, setData] = useState(null);
+    
     const navigate = useNavigate();
 
     useEffect(() => {

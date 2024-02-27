@@ -10,6 +10,7 @@ import ImageContainer from "../components/ImageContainer";
 const Aids = () => {
 
     const [data, setData] = useState(null);
+    
     const navigate = useNavigate();
 
     useEffect(() => {

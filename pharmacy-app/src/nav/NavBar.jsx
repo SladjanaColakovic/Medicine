@@ -2,7 +2,7 @@ import SvgButton from "../buttons/SvgButton";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-    
+
     const navigate = useNavigate();
 
     const showMedicines = () => {
@@ -38,7 +38,6 @@ const NavBar = () => {
             <SvgButton handleClick={showMedicalDiagnosticsDevices} name={"Dijagnostika"} icon={"medical devices"}></SvgButton>
             <SvgButton handleClick={showMedicalAids} name={"Medicinska pomagala"} icon={"medical aids"}></SvgButton>
             <SvgButton handleClick={addNew} name={"Dodaj novi"} icon={"add"}></SvgButton>
-
         </div>
     );
 }

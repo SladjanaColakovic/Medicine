@@ -13,6 +13,7 @@ const DeviceDetails = () => {
 
     const { id } = useParams();
     const [data, setData] = useState(null);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -40,7 +41,6 @@ const DeviceDetails = () => {
         removeService("http://localhost:8080/api/devices/" + data.id, function () {
             navigate("/devices", { replace: true });
         }, "Neuspješno brisanje uređaja");
-
     }
 
     const changeImage = (e) => {

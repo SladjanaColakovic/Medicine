@@ -47,7 +47,6 @@ const NewDevice = () => {
         setSelectedFile(addImageService(e));
     }
 
-
     return (
         <div className="bottom-margin">
             <div className="row">

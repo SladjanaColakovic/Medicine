@@ -10,6 +10,7 @@ import ImageContainer from "../components/ImageContainer";
 const Supplements = () => {
 
     const [data, setData] = useState(null);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +21,6 @@ const Supplements = () => {
             .catch(() => {
                 errorMessage("Neuspješno učitavanje podataka");
             })
-
     }, []);
 
     const showDetails = (id) => {

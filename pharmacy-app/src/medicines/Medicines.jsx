@@ -12,6 +12,7 @@ const Medicines = () => {
     const [data, setData] = useState(null);
     const [classifications, setClassifications] = useState(null);
     const [classification, setClassification] = useState({ id: 1, name: "Alimentarni trakt i metabolizam" });
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +24,6 @@ const Medicines = () => {
             .catch((error) => {
                 console.log(error.message)
             })
-
     }, []);
 
     const changeClassification = (item) => {

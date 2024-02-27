@@ -42,9 +42,8 @@ const NewMedicine = () => {
                 setClassifications(res.data);
             })
             .catch(() => {
-                errorMessage("Neuspješno dodavanje novog lijeka");
+                errorMessage("Neuspješno učitavanje klasifikacija lijeka");
             })
-
     }, []);
 
     const handleAdd = () => {
